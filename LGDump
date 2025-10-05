@@ -1,0 +1,3515 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.3
+-- Dumped by pg_dump version 17.5
+
+-- Started on 2025-08-30 14:02:55
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 1053 (class 1247 OID 50409)
+-- Name: application_protocol_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.application_protocol_type AS ENUM (
+    'HTTP',
+    'SMTP',
+    'FTP',
+    'Kafka',
+    'RTMP',
+    'RTP',
+    'Websockets',
+    'MQTT',
+    'Amazon_Kinesis',
+    'Apache_Flink',
+    'Apache_Spark_Streaming',
+    'Google_Cloud_Pub_Sub',
+    'RabbitMQ',
+    'IBM_MQ',
+    'Apache_Pulsar',
+    'Google_Dataflow',
+    'Other',
+    'needs_to_be_specified',
+    'other'
+);
+
+
+ALTER TYPE public.application_protocol_type OWNER TO postgres;
+
+--
+-- TOC entry 892 (class 1247 OID 16398)
+-- Name: attribute_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.attribute_type AS ENUM (
+    'smallint',
+    'integer',
+    'bigint',
+    'decimal',
+    'numeric',
+    'real',
+    'double precision',
+    'smallserial',
+    'serial',
+    'bigserial',
+    'money',
+    'character varying',
+    'varchar',
+    'bpchar',
+    'text',
+    'bytea',
+    'timestamp',
+    'date',
+    'time',
+    'interval',
+    'boolean',
+    'enum',
+    'point',
+    'line',
+    'lseg',
+    'box',
+    'path',
+    'polygon',
+    'circle',
+    'inet',
+    'cidr',
+    'macaddr',
+    'macaddr8',
+    'bit',
+    'tsvector',
+    'tsquery',
+    'uuid',
+    'xml',
+    'jsonb',
+    'composite',
+    'int4range',
+    'int8range',
+    'numrange',
+    'tsrange',
+    'tstzrange',
+    'daterange',
+    'oid',
+    'pg_lsn',
+    'NA'
+);
+
+
+ALTER TYPE public.attribute_type OWNER TO postgres;
+
+--
+-- TOC entry 895 (class 1247 OID 16496)
+-- Name: attribute_units; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.attribute_units AS ENUM (
+    'inches',
+    'feet',
+    'yards',
+    'miles',
+    'millimeters',
+    'centimeters',
+    'meters',
+    'kilometers',
+    'lightyears',
+    'square_inches',
+    'square_feet',
+    'square_yards',
+    'acres',
+    'square_miles',
+    'square_meters',
+    'hectares',
+    'cubic_inches',
+    'cubic_feet',
+    'cubic_yardsfluid_ounces',
+    'cups',
+    'quarts',
+    'gallons',
+    'oil_barrels',
+    'avoirduois_once',
+    'pound',
+    'ton',
+    'milligram',
+    'gram',
+    'kilogram',
+    'newton',
+    'pounds_per_square_inch',
+    'atmospheres',
+    'millibars',
+    'inches_of_mercurydollars',
+    'pounds',
+    'euros',
+    'yen',
+    'canadian_dollars',
+    'australian_dollars',
+    'swiss_francs',
+    'south_korean_wones',
+    'rubles',
+    'joules',
+    'foot_pounds',
+    'british_thermal_units',
+    'kilowatt_hours',
+    'calories',
+    'tonne_of_tnt',
+    'degrees_fahrenheit',
+    'degrees_celsius',
+    'degrees_kelvin',
+    'volts',
+    'amps',
+    'ohms',
+    'microfarad',
+    'nanofarad',
+    'picofarad',
+    'femtofarad',
+    'henry',
+    'milliseconds',
+    'seconds',
+    'minutes',
+    'hours',
+    'months',
+    'years',
+    'lux',
+    'lumen',
+    'unitless',
+    'dollars'
+);
+
+
+ALTER TYPE public.attribute_units OWNER TO postgres;
+
+--
+-- TOC entry 913 (class 1247 OID 16752)
+-- Name: batch_v_streaming_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.batch_v_streaming_type AS ENUM (
+    'batch',
+    'streaming'
+);
+
+
+ALTER TYPE public.batch_v_streaming_type OWNER TO postgres;
+
+--
+-- TOC entry 916 (class 1247 OID 16758)
+-- Name: classification_level_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.classification_level_type AS ENUM (
+    'unclassified',
+    'CUI',
+    'secrettop_secret',
+    'secret',
+    'top secret'
+);
+
+
+ALTER TYPE public.classification_level_type OWNER TO postgres;
+
+--
+-- TOC entry 907 (class 1247 OID 16712)
+-- Name: data_standard_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.data_standard_type AS ENUM (
+    'NIEM',
+    'UC2',
+    'UCI',
+    'DCMI',
+    'CEDS',
+    'CDA',
+    'LEDESother',
+    'none',
+    'LEDES',
+    'other'
+);
+
+
+ALTER TYPE public.data_standard_type OWNER TO postgres;
+
+--
+-- TOC entry 904 (class 1247 OID 16694)
+-- Name: data_transport_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.data_transport_type AS ENUM (
+    'TCP',
+    'UDP',
+    'wireless',
+    'media',
+    'VOIP',
+    'PSTN',
+    'IPTV',
+    'other'
+);
+
+
+ALTER TYPE public.data_transport_type OWNER TO postgres;
+
+--
+-- TOC entry 941 (class 1247 OID 16826)
+-- Name: database_maturity_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.database_maturity_type AS ENUM (
+    'proposed',
+    'design_approved',
+    'operational_and_curated',
+    'decommissioned'
+);
+
+
+ALTER TYPE public.database_maturity_type OWNER TO postgres;
+
+--
+-- TOC entry 925 (class 1247 OID 16781)
+-- Name: database_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.database_type AS ENUM (
+    'relational',
+    'key_value',
+    'document',
+    'graph',
+    'column_store',
+    'column_family',
+    'document_management_system',
+    'other'
+);
+
+
+ALTER TYPE public.database_type OWNER TO postgres;
+
+--
+-- TOC entry 938 (class 1247 OID 16819)
+-- Name: disposition_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.disposition_type AS ENUM (
+    'active',
+    'archived',
+    'deleted'
+);
+
+
+ALTER TYPE public.disposition_type OWNER TO postgres;
+
+--
+-- TOC entry 947 (class 1247 OID 16916)
+-- Name: file_category_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.file_category_type AS ENUM (
+    'text_category',
+    'source_code',
+    'image',
+    'audio',
+    'video',
+    'slide_deck',
+    'other'
+);
+
+
+ALTER TYPE public.file_category_type OWNER TO postgres;
+
+--
+-- TOC entry 910 (class 1247 OID 16728)
+-- Name: file_format_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.file_format_type AS ENUM (
+    'XML',
+    'JSON',
+    'YAML',
+    'JPEG',
+    'GIF',
+    'PNG',
+    'TIFF',
+    'MPEG',
+    'WAV',
+    'other',
+    'NA',
+    'DOCX',
+    'XLSX',
+    'PPTX',
+    'PDF',
+    'Is not a file'
+);
+
+
+ALTER TYPE public.file_format_type OWNER TO postgres;
+
+--
+-- TOC entry 990 (class 1247 OID 25426)
+-- Name: key_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.key_type AS ENUM (
+    'not a key',
+    'primary',
+    'foreign',
+    'composite primary',
+    'composite foreign'
+);
+
+
+ALTER TYPE public.key_type OWNER TO postgres;
+
+--
+-- TOC entry 1035 (class 1247 OID 42085)
+-- Name: natural_language_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.natural_language_type AS ENUM (
+    'english',
+    'spanish',
+    'chinese',
+    'russian',
+    'french',
+    'german',
+    'italian',
+    'japanese',
+    'korean'
+);
+
+
+ALTER TYPE public.natural_language_type OWNER TO postgres;
+
+--
+-- TOC entry 1059 (class 1247 OID 50460)
+-- Name: network_protocol_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.network_protocol_type AS ENUM (
+);
+
+
+ALTER TYPE public.network_protocol_type OWNER TO postgres;
+
+--
+-- TOC entry 5266 (class 0 OID 0)
+-- Dependencies: 1059
+-- Name: TYPE network_protocol_type; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TYPE public.network_protocol_type IS 'This specifies the network layer protocol for a dataflow.';
+
+
+--
+-- TOC entry 1071 (class 1247 OID 58699)
+-- Name: node_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.node_type AS ENUM (
+    'dataset',
+    'processing',
+    'user'
+);
+
+
+ALTER TYPE public.node_type OWNER TO postgres;
+
+--
+-- TOC entry 5267 (class 0 OID 0)
+-- Dependencies: 1071
+-- Name: TYPE node_type; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TYPE public.node_type IS 'A source or sink can be any of the 3 types. ';
+
+
+--
+-- TOC entry 931 (class 1247 OID 16807)
+-- Name: phone_number; Type: DOMAIN; Schema: public; Owner: postgres
+--
+
+CREATE DOMAIN public.phone_number AS text
+	CONSTRAINT phone_number_check CHECK ((VALUE ~ '^(\\d{3}-\\d{3}-\\d{4})$'::text));
+
+
+ALTER DOMAIN public.phone_number OWNER TO postgres;
+
+--
+-- TOC entry 1038 (class 1247 OID 42104)
+-- Name: programing_language_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.programing_language_type AS ENUM (
+    'python',
+    'java',
+    'javascript',
+    'c++',
+    'typescript',
+    'sql',
+    'c#',
+    'go',
+    'c',
+    'html',
+    'rust',
+    'mathematica',
+    'php',
+    'shell',
+    'lua'
+);
+
+
+ALTER TYPE public.programing_language_type OWNER TO postgres;
+
+--
+-- TOC entry 1056 (class 1247 OID 50451)
+-- Name: transport_protocol_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.transport_protocol_type AS ENUM (
+    'TCP',
+    'UDP',
+    'other',
+    'needs_to_be_specified'
+);
+
+
+ALTER TYPE public.transport_protocol_type OWNER TO postgres;
+
+--
+-- TOC entry 5268 (class 0 OID 0)
+-- Dependencies: 1056
+-- Name: TYPE transport_protocol_type; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TYPE public.transport_protocol_type IS 'This specifies transport layer protocols for the dataflows.';
+
+
+--
+-- TOC entry 983 (class 1247 OID 17230)
+-- Name: us_phone_number; Type: DOMAIN; Schema: public; Owner: postgres
+--
+
+CREATE DOMAIN public.us_phone_number AS text
+	CONSTRAINT us_phone_number_check CHECK ((VALUE ~ '^\d{3}-\d{3}-\d{4}$'::text));
+
+
+ALTER DOMAIN public.us_phone_number OWNER TO postgres;
+
+--
+-- TOC entry 919 (class 1247 OID 16766)
+-- Name: yes_no_type; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.yes_no_type AS ENUM (
+    'yes',
+    'no'
+);
+
+
+ALTER TYPE public.yes_no_type OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 226 (class 1259 OID 16879)
+-- Name: algorithm; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.algorithm (
+    algorithm_id integer NOT NULL,
+    point_of_contact integer NOT NULL,
+    algorithm_reference text NOT NULL,
+    other_notes text,
+    source_code text NOT NULL,
+    maturity public.database_maturity_type
+);
+
+
+ALTER TABLE public.algorithm OWNER TO postgres;
+
+--
+-- TOC entry 5269 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: TABLE algorithm; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.algorithm IS 'This table provides references to algorithmic descriptions. Criteria for including an algorithm are: 1) Does it determine data values that flow throughout the systems? 2) If some new development team were to reproduce the behavior of the processing module, would they need a descriptionn of that  algorithm.  This also determines the level of detail for the algorithm description. ';
+
+
+--
+-- TOC entry 5270 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: COLUMN algorithm.algorithm_reference; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.algorithm.algorithm_reference IS 'Reference should be a URL or other accessible reference.  Content should cover the way in which dataflow inputs to a processing node are transformed into the dataflow outputs.  Published algorithms can be referenced or, if the algorithm is original, up to date documentation can be autogenerated using tools such as Scribe, DocuWriter, Bito, or Document360.  Updating the documentation should be part of the software development pipline.  ';
+
+
+--
+-- TOC entry 5271 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: COLUMN algorithm.source_code; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.algorithm.source_code IS 'A link to the source repository of means of accessing such a repository.';
+
+
+--
+-- TOC entry 225 (class 1259 OID 16878)
+-- Name: algorithm_algorithm_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.algorithm_algorithm_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.algorithm_algorithm_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5272 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: algorithm_algorithm_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.algorithm_algorithm_id_seq OWNED BY public.algorithm.algorithm_id;
+
+
+--
+-- TOC entry 216 (class 1259 OID 16634)
+-- Name: attribute; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.attribute (
+    attribute_id integer NOT NULL,
+    attribute_name character varying(25) NOT NULL,
+    definition text NOT NULL,
+    notes text,
+    attrib_units public.attribute_units NOT NULL,
+    attrib_type public.attribute_type NOT NULL,
+    attribute_equivalence_id integer,
+    enum_name character varying,
+    maturity public.database_maturity_type[]
+);
+
+
+ALTER TABLE public.attribute OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 16633)
+-- Name: attribute_attribute_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.attribute_attribute_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.attribute_attribute_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5273 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: attribute_attribute_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.attribute_attribute_id_seq OWNED BY public.attribute.attribute_id;
+
+
+--
+-- TOC entry 238 (class 1259 OID 17113)
+-- Name: attribute_equivalence_set; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.attribute_equivalence_set (
+    attribute_equivalence_id integer NOT NULL,
+    attribute_equivalence_name character varying(25) NOT NULL,
+    definition text NOT NULL,
+    notes text
+);
+
+
+ALTER TABLE public.attribute_equivalence_set OWNER TO postgres;
+
+--
+-- TOC entry 5274 (class 0 OID 0)
+-- Dependencies: 238
+-- Name: TABLE attribute_equivalence_set; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.attribute_equivalence_set IS 'definition should describe the concept represented by the attribute.';
+
+
+--
+-- TOC entry 237 (class 1259 OID 17112)
+-- Name: attribute_equivalence_set_attribute_equivalence_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.attribute_equivalence_set_attribute_equivalence_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.attribute_equivalence_set_attribute_equivalence_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5275 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: attribute_equivalence_set_attribute_equivalence_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.attribute_equivalence_set_attribute_equivalence_id_seq OWNED BY public.attribute_equivalence_set.attribute_equivalence_id;
+
+
+--
+-- TOC entry 261 (class 1259 OID 50366)
+-- Name: attribute_standard; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.attribute_standard (
+    attribute_id integer NOT NULL,
+    standard_id integer NOT NULL
+);
+
+
+ALTER TABLE public.attribute_standard OWNER TO postgres;
+
+--
+-- TOC entry 5276 (class 0 OID 0)
+-- Dependencies: 261
+-- Name: TABLE attribute_standard; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.attribute_standard IS 'This is a many to many table that indicates which standard an attribute is in.';
+
+
+--
+-- TOC entry 259 (class 1259 OID 25687)
+-- Name: attribute_subject; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.attribute_subject (
+    attribute_id integer NOT NULL,
+    subject_name character varying(25) NOT NULL
+);
+
+
+ALTER TABLE public.attribute_subject OWNER TO postgres;
+
+--
+-- TOC entry 254 (class 1259 OID 25623)
+-- Name: data_exchange_standard; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.data_exchange_standard (
+    standard_id integer NOT NULL,
+    standard_name character varying(25) NOT NULL,
+    reference text NOT NULL
+);
+
+
+ALTER TABLE public.data_exchange_standard OWNER TO postgres;
+
+--
+-- TOC entry 253 (class 1259 OID 25622)
+-- Name: data_exchange_standard_standard_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.data_exchange_standard_standard_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.data_exchange_standard_standard_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5277 (class 0 OID 0)
+-- Dependencies: 253
+-- Name: data_exchange_standard_standard_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.data_exchange_standard_standard_id_seq OWNED BY public.data_exchange_standard.standard_id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 16643)
+-- Name: data_object; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.data_object (
+    data_object_id integer NOT NULL,
+    data_object_name character varying(25) NOT NULL,
+    definition text NOT NULL,
+    notes text,
+    data_object_equivalence_set integer
+);
+
+
+ALTER TABLE public.data_object OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 16642)
+-- Name: data_object_data_object_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.data_object_data_object_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.data_object_data_object_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5278 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: data_object_data_object_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.data_object_data_object_id_seq OWNED BY public.data_object.data_object_id;
+
+
+--
+-- TOC entry 236 (class 1259 OID 17078)
+-- Name: data_object_equivalence_set; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.data_object_equivalence_set (
+    object_equivalence_id integer NOT NULL,
+    object_equivalence_name character varying(25) NOT NULL,
+    definition text NOT NULL,
+    notes text
+);
+
+
+ALTER TABLE public.data_object_equivalence_set OWNER TO postgres;
+
+--
+-- TOC entry 235 (class 1259 OID 17077)
+-- Name: data_object_equivalence_set_object_equivalence_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.data_object_equivalence_set_object_equivalence_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.data_object_equivalence_set_object_equivalence_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5279 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: data_object_equivalence_set_object_equivalence_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.data_object_equivalence_set_object_equivalence_id_seq OWNED BY public.data_object_equivalence_set.object_equivalence_id;
+
+
+--
+-- TOC entry 262 (class 1259 OID 50381)
+-- Name: data_object_standard; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.data_object_standard (
+    data_object_id integer NOT NULL,
+    standard_id integer NOT NULL
+);
+
+
+ALTER TABLE public.data_object_standard OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 16772)
+-- Name: dataflow; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dataflow (
+    dataflow_id integer NOT NULL,
+    dataflow_description text NOT NULL,
+    max_classification public.classification_level_type NOT NULL,
+    fully_encrypted public.yes_no_type NOT NULL,
+    source_id integer NOT NULL,
+    destination_id integer NOT NULL,
+    "ETL_method" text NOT NULL,
+    link_protocol_diagram_url character varying NOT NULL,
+    physical_protocol_diagram_url character varying,
+    poc integer NOT NULL,
+    max_gb_per_second real
+);
+
+
+ALTER TABLE public.dataflow OWNER TO postgres;
+
+--
+-- TOC entry 5280 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: TABLE dataflow; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.dataflow IS 'The application, transport, and network layer protocols for a data flow are described in many-to-many tables because there may be multiple protocols used in a single dataflow layer.  The link and physical layer protocols tend to be used in a sequence, thus requiring a diagram.  Hence the attributes in the dataflow table will be links to diagrams.  ';
+
+
+--
+-- TOC entry 5281 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: COLUMN dataflow.dataflow_description; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.dataflow.dataflow_description IS 'Human readable texual description. .';
+
+
+--
+-- TOC entry 5282 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: COLUMN dataflow.max_classification; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.dataflow.max_classification IS 'National security classification';
+
+
+--
+-- TOC entry 5283 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: COLUMN dataflow."ETL_method"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.dataflow."ETL_method" IS 'This is information sufficient to interpret data on the dataflow. It will be one of the following: 1) A link to source code that can ETL the data. 2) A reference to an ETL tool and settings for this particular flow. 3) A link to a detailed description of the dataflow ETL.
+';
+
+
+--
+-- TOC entry 263 (class 1259 OID 50461)
+-- Name: dataflow_application_protocol; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dataflow_application_protocol (
+    dataflow_id integer NOT NULL,
+    application_protocol public.application_protocol_type NOT NULL
+);
+
+
+ALTER TABLE public.dataflow_application_protocol OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 16771)
+-- Name: dataflow_dataflow_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.dataflow_dataflow_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.dataflow_dataflow_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5284 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: dataflow_dataflow_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.dataflow_dataflow_id_seq OWNED BY public.dataflow.dataflow_id;
+
+
+--
+-- TOC entry 260 (class 1259 OID 42147)
+-- Name: dataflow_file; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dataflow_file (
+    dataflow_id integer NOT NULL,
+    file_format public.file_format_type NOT NULL,
+    format_ref_url character varying NOT NULL,
+    file_ref_particulars_url character varying NOT NULL
+);
+
+
+ALTER TABLE public.dataflow_file OWNER TO postgres;
+
+--
+-- TOC entry 5285 (class 0 OID 0)
+-- Dependencies: 260
+-- Name: TABLE dataflow_file; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.dataflow_file IS 'file_reference_particulars is a reference describing structure in the file beyond that dictated by the file type syntax. ';
+
+
+--
+-- TOC entry 5286 (class 0 OID 0)
+-- Dependencies: 260
+-- Name: COLUMN dataflow_file.format_ref_url; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.dataflow_file.format_ref_url IS 'This is a reference for the file format in general.  For example example, the reference describes the general syntax of an xml file.  This is usually a url, but could be some other accessible reference.  ';
+
+
+--
+-- TOC entry 5287 (class 0 OID 0)
+-- Dependencies: 260
+-- Name: COLUMN dataflow_file.file_ref_particulars_url; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.dataflow_file.file_ref_particulars_url IS 'There may be syntactical particulars for these files on this dataflow that go beyond those of the general file syntax.  Provide a url or some other reference here.';
+
+
+--
+-- TOC entry 265 (class 1259 OID 50486)
+-- Name: dataflow_network_protocol; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dataflow_network_protocol (
+    dataflow_id integer NOT NULL,
+    network_protocol public.network_protocol_type NOT NULL
+);
+
+
+ALTER TABLE public.dataflow_network_protocol OWNER TO postgres;
+
+--
+-- TOC entry 243 (class 1259 OID 17191)
+-- Name: dataflow_nonembedded_attribute; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dataflow_nonembedded_attribute (
+    dataflow_id integer NOT NULL,
+    attribute_id integer NOT NULL
+);
+
+
+ALTER TABLE public.dataflow_nonembedded_attribute OWNER TO postgres;
+
+--
+-- TOC entry 5288 (class 0 OID 0)
+-- Dependencies: 243
+-- Name: TABLE dataflow_nonembedded_attribute; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.dataflow_nonembedded_attribute IS 'These are attributes on a flow that are not embedded in an object.';
+
+
+--
+-- TOC entry 242 (class 1259 OID 17176)
+-- Name: dataflow_object; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dataflow_object (
+    dataflow_id integer NOT NULL,
+    data_object_id integer NOT NULL
+);
+
+
+ALTER TABLE public.dataflow_object OWNER TO postgres;
+
+--
+-- TOC entry 5289 (class 0 OID 0)
+-- Dependencies: 242
+-- Name: TABLE dataflow_object; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.dataflow_object IS 'Data objects that are on a dataflow.';
+
+
+--
+-- TOC entry 264 (class 1259 OID 50476)
+-- Name: dataflow_transport_protocol; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dataflow_transport_protocol (
+    dataflow_id integer NOT NULL,
+    transport_protocol public.transport_protocol_type NOT NULL
+);
+
+
+ALTER TABLE public.dataflow_transport_protocol OWNER TO postgres;
+
+--
+-- TOC entry 248 (class 1259 OID 25507)
+-- Name: dataset; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dataset (
+    node_id integer NOT NULL,
+    dataset_name character varying(25) NOT NULL,
+    notes text,
+    dataset_type public.database_type,
+    dataset_maturity public.database_maturity_type,
+    disposition public.disposition_type,
+    start_date date,
+    end_date date,
+    most_recent_update date,
+    update_periodicity interval,
+    system_of_record text,
+    point_of_contact integer,
+    dataset_url text,
+    classification_level public.classification_level_type,
+    physical_location text,
+    quality_control public.yes_no_type,
+    dataset_documentation_url text,
+    description text
+);
+
+
+ALTER TABLE public.dataset OWNER TO postgres;
+
+--
+-- TOC entry 5290 (class 0 OID 0)
+-- Dependencies: 248
+-- Name: COLUMN dataset.node_id; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.dataset.node_id IS 'You have to add an ID to the node table first, then copy it here.  ';
+
+
+--
+-- TOC entry 257 (class 1259 OID 25657)
+-- Name: dataset_subject; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dataset_subject (
+    node_id integer NOT NULL,
+    subject_name character varying(25) NOT NULL
+);
+
+
+ALTER TABLE public.dataset_subject OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 16940)
+-- Name: dataset_table; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dataset_table (
+    table_id integer NOT NULL,
+    node_id integer NOT NULL
+);
+
+
+ALTER TABLE public.dataset_table OWNER TO postgres;
+
+--
+-- TOC entry 247 (class 1259 OID 25501)
+-- Name: node; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.node (
+    node_id integer NOT NULL,
+    node_type public.node_type NOT NULL
+);
+
+
+ALTER TABLE public.node OWNER TO postgres;
+
+--
+-- TOC entry 5291 (class 0 OID 0)
+-- Dependencies: 247
+-- Name: TABLE node; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.node IS 'node_id is a foreign key in multiple tables.  However, I can''t currently declare it there because dups spontaneously show up in the nodes table and I can''t delete them if they are foreign keys elsewhere. ';
+
+
+--
+-- TOC entry 250 (class 1259 OID 25541)
+-- Name: destination_node; Type: MATERIALIZED VIEW; Schema: public; Owner: postgres
+--
+
+CREATE MATERIALIZED VIEW public.destination_node AS
+ SELECT node_id
+   FROM public.node
+  WITH NO DATA;
+
+
+ALTER MATERIALIZED VIEW public.destination_node OWNER TO postgres;
+
+--
+-- TOC entry 244 (class 1259 OID 25418)
+-- Name: enum_value; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.enum_value (
+    enum_name character varying NOT NULL,
+    enum_value character varying NOT NULL
+);
+
+
+ALTER TABLE public.enum_value OWNER TO postgres;
+
+--
+-- TOC entry 246 (class 1259 OID 25500)
+-- Name: node_node_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.node_node_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.node_node_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5292 (class 0 OID 0)
+-- Dependencies: 246
+-- Name: node_node_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.node_node_id_seq OWNED BY public.node.node_id;
+
+
+--
+-- TOC entry 239 (class 1259 OID 17131)
+-- Name: object_attribute; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.object_attribute (
+    data_object_id integer NOT NULL,
+    attribute_id integer NOT NULL
+);
+
+
+ALTER TABLE public.object_attribute OWNER TO postgres;
+
+--
+-- TOC entry 256 (class 1259 OID 25642)
+-- Name: object_equivalence_set; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.object_equivalence_set (
+    object_equivalence_set_id integer NOT NULL,
+    object_equivalence_set_name character varying(25) NOT NULL,
+    description text NOT NULL,
+    notes text
+);
+
+
+ALTER TABLE public.object_equivalence_set OWNER TO postgres;
+
+--
+-- TOC entry 255 (class 1259 OID 25641)
+-- Name: object_equivalence_set_object_equivalence_set_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.object_equivalence_set_object_equivalence_set_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.object_equivalence_set_object_equivalence_set_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5293 (class 0 OID 0)
+-- Dependencies: 255
+-- Name: object_equivalence_set_object_equivalence_set_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.object_equivalence_set_object_equivalence_set_id_seq OWNED BY public.object_equivalence_set.object_equivalence_set_id;
+
+
+--
+-- TOC entry 258 (class 1259 OID 25672)
+-- Name: object_subject; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.object_subject (
+    object_id integer NOT NULL,
+    subject_name character varying(25) NOT NULL
+);
+
+
+ALTER TABLE public.object_subject OWNER TO postgres;
+
+--
+-- TOC entry 240 (class 1259 OID 17146)
+-- Name: parent_child_object; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.parent_child_object (
+    data_object_id_parent integer NOT NULL,
+    data_object_id_child integer NOT NULL
+);
+
+
+ALTER TABLE public.parent_child_object OWNER TO postgres;
+
+--
+-- TOC entry 224 (class 1259 OID 16810)
+-- Name: poc; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.poc (
+    poc_id integer NOT NULL,
+    first_name character varying(25),
+    last_name character varying(25),
+    email character varying(60),
+    organization text,
+    phone public.us_phone_number
+);
+
+
+ALTER TABLE public.poc OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 16809)
+-- Name: poc_poc_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.poc_poc_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.poc_poc_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5294 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: poc_poc_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.poc_poc_id_seq OWNED BY public.poc.poc_id;
+
+
+--
+-- TOC entry 251 (class 1259 OID 25555)
+-- Name: processing_node; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.processing_node (
+    node_id integer NOT NULL,
+    processing_node_name character varying(25),
+    description text,
+    notes text,
+    point_of_contact integer,
+    is_a_user_application public.yes_no_type
+);
+
+
+ALTER TABLE public.processing_node OWNER TO postgres;
+
+--
+-- TOC entry 252 (class 1259 OID 25587)
+-- Name: processing_node_algorithm; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.processing_node_algorithm (
+    node_id integer NOT NULL,
+    algorithm_id integer NOT NULL
+);
+
+
+ALTER TABLE public.processing_node_algorithm OWNER TO postgres;
+
+--
+-- TOC entry 249 (class 1259 OID 25537)
+-- Name: source_node; Type: MATERIALIZED VIEW; Schema: public; Owner: postgres
+--
+
+CREATE MATERIALIZED VIEW public.source_node AS
+ SELECT node_id
+   FROM public.node
+  WITH NO DATA;
+
+
+ALTER MATERIALIZED VIEW public.source_node OWNER TO postgres;
+
+--
+-- TOC entry 232 (class 1259 OID 17029)
+-- Name: subject; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.subject (
+    subject_name character varying(25) NOT NULL,
+    description text
+);
+
+
+ALTER TABLE public.subject OWNER TO postgres;
+
+--
+-- TOC entry 234 (class 1259 OID 17057)
+-- Name: synonym; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.synonym (
+    subject_name_a character varying(25) NOT NULL,
+    subject_name_b character varying(25) NOT NULL
+);
+
+
+ALTER TABLE public.synonym OWNER TO postgres;
+
+--
+-- TOC entry 229 (class 1259 OID 16971)
+-- Name: system; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.system (
+    system_id integer NOT NULL,
+    system_name character varying(25),
+    description text,
+    notes text,
+    point_of_contact integer,
+    organization character varying(25),
+    security_level public.classification_level_type,
+    physical_location text
+);
+
+
+ALTER TABLE public.system OWNER TO postgres;
+
+--
+-- TOC entry 230 (class 1259 OID 16999)
+-- Name: system_dataset; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.system_dataset (
+    system_id integer NOT NULL,
+    node_id integer NOT NULL
+);
+
+
+ALTER TABLE public.system_dataset OWNER TO postgres;
+
+--
+-- TOC entry 231 (class 1259 OID 17014)
+-- Name: system_processing_node; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.system_processing_node (
+    system_id integer NOT NULL,
+    processing_node_id integer NOT NULL
+);
+
+
+ALTER TABLE public.system_processing_node OWNER TO postgres;
+
+--
+-- TOC entry 267 (class 1259 OID 91496)
+-- Name: system_subject; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.system_subject (
+    system_id integer NOT NULL,
+    subject_name character varying NOT NULL
+);
+
+
+ALTER TABLE public.system_subject OWNER TO postgres;
+
+--
+-- TOC entry 5295 (class 0 OID 0)
+-- Dependencies: 267
+-- Name: TABLE system_subject; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.system_subject IS 'This is a many to many table describing the subject matter of data systems.';
+
+
+--
+-- TOC entry 228 (class 1259 OID 16970)
+-- Name: system_system_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.system_system_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.system_system_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5296 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: system_system_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.system_system_id_seq OWNED BY public.system.system_id;
+
+
+--
+-- TOC entry 241 (class 1259 OID 17161)
+-- Name: table_attribute; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.table_attribute (
+    table_id integer NOT NULL,
+    attribute_id integer NOT NULL,
+    primary_key public.yes_no_type NOT NULL,
+    foreign_key_table integer,
+    composite_key public.yes_no_type NOT NULL,
+    foreign_key_key integer
+);
+
+
+ALTER TABLE public.table_attribute OWNER TO postgres;
+
+--
+-- TOC entry 5297 (class 0 OID 0)
+-- Dependencies: 241
+-- Name: COLUMN table_attribute.foreign_key_table; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.table_attribute.foreign_key_table IS 'If the attribute is a foreign key in the table, indicate what table it is from, given that a foreign key can be from one of many tables. If NULL, that means it is not a foreign key.  WARNING: there a dependency between this attribute and foreign_key_key.';
+
+
+--
+-- TOC entry 5298 (class 0 OID 0)
+-- Dependencies: 241
+-- Name: COLUMN table_attribute.composite_key; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.table_attribute.composite_key IS 'A key can be both primary and composite. 
+
+WARNING, DEPENDENCY: If this is yes, then there have to be at lease 2 primary keys.  Create QC scan of the DB for all such dependencies.  ';
+
+
+--
+-- TOC entry 5299 (class 0 OID 0)
+-- Dependencies: 241
+-- Name: COLUMN table_attribute.foreign_key_key; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.table_attribute.foreign_key_key IS 'If the attribute is a foreign key then this attribute indicates the key name in the foreign table.  If NULL, then attribute_id is not a foreign key.  WARNING: there a dependency between this attribute and foreign_key_table.';
+
+
+--
+-- TOC entry 245 (class 1259 OID 25447)
+-- Name: table_subject; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.table_subject (
+    "table_ID" integer NOT NULL,
+    subject_name character varying NOT NULL
+);
+
+
+ALTER TABLE public.table_subject OWNER TO postgres;
+
+--
+-- TOC entry 5300 (class 0 OID 0)
+-- Dependencies: 245
+-- Name: TABLE table_subject; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.table_subject IS 'A many to many mapping of tables to subjects';
+
+
+--
+-- TOC entry 233 (class 1259 OID 17041)
+-- Name: taxonomy; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.taxonomy (
+    subject character varying(25) NOT NULL,
+    sub_subject character varying(25) NOT NULL
+);
+
+
+ALTER TABLE public.taxonomy OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 16798)
+-- Name: ums_table; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.ums_table (
+    table_id integer NOT NULL,
+    table_name character varying(25) NOT NULL,
+    definition text NOT NULL,
+    table_notes text
+);
+
+
+ALTER TABLE public.ums_table OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 16797)
+-- Name: ums_table_table_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.ums_table_table_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.ums_table_table_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5301 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: ums_table_table_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.ums_table_table_id_seq OWNED BY public.ums_table.table_id;
+
+
+--
+-- TOC entry 266 (class 1259 OID 58705)
+-- Name: user_role; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.user_role (
+    node_id integer NOT NULL,
+    role_name character varying NOT NULL,
+    "Description" text
+);
+
+
+ALTER TABLE public.user_role OWNER TO postgres;
+
+--
+-- TOC entry 4928 (class 2604 OID 16882)
+-- Name: algorithm algorithm_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.algorithm ALTER COLUMN algorithm_id SET DEFAULT nextval('public.algorithm_algorithm_id_seq'::regclass);
+
+
+--
+-- TOC entry 4924 (class 2604 OID 16637)
+-- Name: attribute attribute_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.attribute ALTER COLUMN attribute_id SET DEFAULT nextval('public.attribute_attribute_id_seq'::regclass);
+
+
+--
+-- TOC entry 4931 (class 2604 OID 17116)
+-- Name: attribute_equivalence_set attribute_equivalence_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.attribute_equivalence_set ALTER COLUMN attribute_equivalence_id SET DEFAULT nextval('public.attribute_equivalence_set_attribute_equivalence_id_seq'::regclass);
+
+
+--
+-- TOC entry 4932 (class 2604 OID 25626)
+-- Name: data_exchange_standard standard_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.data_exchange_standard ALTER COLUMN standard_id SET DEFAULT nextval('public.data_exchange_standard_standard_id_seq'::regclass);
+
+
+--
+-- TOC entry 4925 (class 2604 OID 16646)
+-- Name: data_object data_object_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.data_object ALTER COLUMN data_object_id SET DEFAULT nextval('public.data_object_data_object_id_seq'::regclass);
+
+
+--
+-- TOC entry 4930 (class 2604 OID 17081)
+-- Name: data_object_equivalence_set object_equivalence_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.data_object_equivalence_set ALTER COLUMN object_equivalence_id SET DEFAULT nextval('public.data_object_equivalence_set_object_equivalence_id_seq'::regclass);
+
+
+--
+-- TOC entry 4933 (class 2604 OID 25645)
+-- Name: object_equivalence_set object_equivalence_set_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.object_equivalence_set ALTER COLUMN object_equivalence_set_id SET DEFAULT nextval('public.object_equivalence_set_object_equivalence_set_id_seq'::regclass);
+
+
+--
+-- TOC entry 4927 (class 2604 OID 16813)
+-- Name: poc poc_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.poc ALTER COLUMN poc_id SET DEFAULT nextval('public.poc_poc_id_seq'::regclass);
+
+
+--
+-- TOC entry 4929 (class 2604 OID 16974)
+-- Name: system system_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system ALTER COLUMN system_id SET DEFAULT nextval('public.system_system_id_seq'::regclass);
+
+
+--
+-- TOC entry 4926 (class 2604 OID 16801)
+-- Name: ums_table table_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ums_table ALTER COLUMN table_id SET DEFAULT nextval('public.ums_table_table_id_seq'::regclass);
+
+
+--
+-- TOC entry 5219 (class 0 OID 16879)
+-- Dependencies: 226
+-- Data for Name: algorithm; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.algorithm (algorithm_id, point_of_contact, algorithm_reference, other_notes, source_code, maturity) FROM stdin;
+1	9	www.acme.com/analytics_algorithms	\N	www.acme.com/analytics_git	\N
+2	11	www.acme.com/hiring_algorithms	\N	www.acme.com/hiring_git	\N
+3	11	www.acme.com/hours_algorithms	\N	www.acme.com/hiring_git	\N
+4	11	www.acme.com/payroll_algorithms	\N	www.acme.com/payroll_git	\N
+5	9	www.acme.com/orders_ag_algorithms	\N	www.acme.com/orders_ag_git	\N
+6	12	www.acme.com/shipping_algorithms	\N	www.acme.com/shipping_git	\N
+7	12	www.acme.com/ordering_algorithms	\N	www.acme.com/ordering_git	\N
+8	10	www.acme.com/stocking_algorithms	\N	www.acme.com/stocking_git	\N
+9	12	www.acme.com/reviewing_algorithms	\N	www.acme.com/reviewing_git	\N
+10	12	www.acme.com/returning_algorithms	\N	www.acme.com/returning_git	\N
+\.
+
+
+--
+-- TOC entry 5209 (class 0 OID 16634)
+-- Dependencies: 216
+-- Data for Name: attribute; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.attribute (attribute_id, attribute_name, definition, notes, attrib_units, attrib_type, attribute_equivalence_id, enum_name, maturity) FROM stdin;
+2	product_id	Acme product ID	\N	unitless	integer	\N	\N	\N
+3	product_name	the name of a product	\N	unitless	varchar	\N	\N	\N
+5	price	the price of a product	\N	dollars	money	\N	\N	\N
+6	product_category	the category of a product	\N	unitless	varchar	\N	\N	\N
+8	inventory	how many of the product items are in stock	\N	unitless	integer	\N	\N	\N
+11	shipper_id	ID of a shipping company	\N	unitless	integer	\N	\N	\N
+12	shipper_name	shipping company's name	\N	unitless	varchar	\N	\N	\N
+13	shipper_address	address of a shipping company	If there are multiple addresses, it should be the main headquarters	unitless	text	\N	\N	\N
+14	shipper_email	shipping company's email	should be for the main point of contact at the company	unitless	varchar	\N	\N	\N
+15	shipper_phone	shipper's phone	should be for the main point of contact	unitless	varchar	\N	\N	\N
+16	supplier_id	ID of a product supplier	\N	unitless	integer	\N	\N	\N
+17	supplier_name	the name of a product supplier	\N	unitless	varchar	\N	\N	\N
+18	supplier_address	the address of a product supplier	\N	unitless	text	\N	\N	\N
+20	supplier_email	the email of a product supplier	\N	unitless	varchar	\N	\N	\N
+21	supplier_phone	the phone number of a supplier	use the primary point of contact	unitless	varchar	\N	\N	\N
+22	review_id	ID of a product review	\N	unitless	integer	\N	\N	\N
+24	rating	a product rating	range is 1 to 5	unitless	integer	\N	\N	\N
+25	order_id	ID of a product order	\N	unitless	integer	\N	\N	\N
+27	customer_id	ID of an Acme customer	\N	unitless	integer	\N	\N	\N
+28	customer_first_name	the first name of a customer	\N	unitless	varchar	\N	\N	\N
+29	customer_last_name	a customer's last name	\N	unitless	varchar	\N	\N	\N
+30	customer_address	the address of a customer	\N	unitless	varchar	\N	\N	\N
+31	customer_credit_card	customer's credit card number	Must be 16 digits.	unitless	integer	\N	\N	\N
+32	employee_id	the ID of an employee	\N	unitless	integer	\N	\N	\N
+33	employee_first_name	first name of an employee	\N	unitless	varchar	\N	\N	\N
+34	employee_last_name	last name of an employee	\N	unitless	varchar	\N	\N	\N
+35	title	an employee's title	\N	unitless	varchar	\N	\N	\N
+36	supervisor_id	ID of an employee's supervisor	This is called employee_id in the parent table.	unitless	integer	\N	\N	\N
+37	distribution_id	a payroll distribution to an employee	\N	unitless	integer	\N	\N	\N
+38	distribution_date	date of a payroll distribution	\N	unitless	date	\N	\N	\N
+39	distribution_amount	amount of a payroll distribution	\N	dollars	money	\N	\N	\N
+40	department_name	the name of an Acme department	\N	unitless	varchar	\N	\N	\N
+41	department_function	describes what an Acme department does	\N	unitless	text	\N	\N	\N
+42	department_head	the head of an Acme department	an employee ID in the parent table	unitless	integer	\N	\N	\N
+43	candidate_id	ID for a candidate employee under consideration for hire	\N	unitless	integer	\N	\N	\N
+46	candidate_first_name	first name of a potential hire	\N	unitless	varchar	\N	\N	\N
+47	candidate_last_name	last name of a potential hire	\N	unitless	varchar	\N	\N	\N
+48	current_employer	current employer of a candidate hire	\N	unitless	varchar	\N	\N	\N
+49	min_salary	minimum salary for a candidate's position	\N	unitless	integer	\N	\N	\N
+50	max_salary	maximum salary for a candidate's position 	\N	unitless	integer	\N	\N	\N
+51	resume	the resume of a hire candidate	typically a word or PDF file	unitless	bytea	\N	\N	\N
+53	campaign_id	ID of a marketing campaign	\N	unitless	integer	\N	\N	\N
+54	campaign_name	the name of an advertising campaign	\N	unitless	varchar	\N	\N	\N
+55	campaign_description	a description of an advertising campaign	\N	unitless	text	\N	\N	\N
+56	campaign_lead	a person who leads an advertising campaign	\N	unitless	integer	\N	\N	\N
+57	interaction_id	an ID for a customer interaction	\N	unitless	integer	\N	\N	\N
+58	interaction_date	the date at which a customer-employee interaction occurred 	\N	unitless	date	\N	\N	\N
+59	interaction_notes	notes taken by an employee when interacting with a customer	\N	unitless	text	\N	\N	\N
+60	category_name	the name of a acme product category	\N	unitless	varchar	\N	\N	\N
+61	sales_year	year for which the sales of a category are totaled	4 digits	unitless	integer	\N	\N	\N
+62	category_sales	gross income in a product category	\N	dollars	money	\N	\N	\N
+63	balance_date	date for an entry in the balance sheet	\N	unitless	date	\N	\N	\N
+64	cash	cash in a balance sheet	\N	dollars	money	\N	\N	\N
+65	accounts_receivable	money owed by others to Acme	\N	dollars	money	\N	\N	\N
+66	inventory	the value of Acme's product inventory	\N	dollars	money	\N	\N	\N
+67	prepaid_expenses	debts paid by Acme in advance	\N	dollars	money	\N	\N	\N
+68	income_statement_year	the year covered by an income statement	four digits	unitless	integer	\N	\N	\N
+69	acme_annual_sales	Acme's annual sales	\N	dollars	money	\N	\N	\N
+70	salaries	sum of all Acme salaries for the year	\N	dollars	money	\N	\N	\N
+71	depreciation_expenses	total depreciation of all depreciable assets for the year	\N	dollars	money	\N	\N	\N
+72	office_expenses	costs related to operating an office	\N	dollars	money	\N	\N	\N
+73	acme_travel_expenses	cost of all Acme travel	\N	dollars	money	\N	\N	\N
+74	advertising_expenses 	total cost of advertising 	\N	dollars	money	\N	\N	\N
+75	acme_taxes	annual taxes paid by Acme 	\N	dollars	money	\N	\N	\N
+76	transaction_id	ID for a financial transaction involving Acme	\N	unitless	integer	\N	\N	\N
+77	transaction_date	the date of a transaction	includes time	unitless	date	\N	\N	\N
+78	transaction_description	a description of the transaction	\N	unitless	text	\N	\N	\N
+23	review_content	text of a product review	\N	unitless	text	\N	\N	\N
+9	restock_on_order	indicates whether the product's stock is currently being replenished	yes_no enum type	unitless	enum	\N	yes_no	\N
+10	discontinued	indicates whether product is no longer available	yes_no enum type	unitless	enum	\N	yes_no	\N
+26	order_status	the status of a product order	\N	unitless	enum	\N	order_status	\N
+83	flow_account	the account number that the money goes into or out of	\N	unitless	integer	\N	\N	\N
+82	flow_amount	the amount of a cash flow transaction	always represented as positive.  Sign is determined by flow category.  This avoids a dependency.  A view can be created for ease of use. 	dollars	money	\N	\N	\N
+4	product_description	The description of a product. 	 It is a homonym because it can be a description of different things.	unitless	text	\N	\N	\N
+84	employee_salary	annual pay for an employee	full year rate even if partial year served	dollars	money	\N	\N	\N
+52	hiring_status	current state of the hiring process	\N	unitless	enum	\N	hiring_status	\N
+79	flow_category	a type of cash flow	\N	unitless	enum	\N	flow_category	\N
+87	order_date	the date an order is submitted by a customer	timezone = US Pacific	milliseconds	timestamp	\N	\N	\N
+86	product_quantity	number of like items in an order	\N	unitless	integer	\N	\N	\N
+88	quantity_to_restock	amount of a product requested from a supplier to replenish stocks	not necessarily the amount in a single order	unitless	integer	\N	\N	\N
+\.
+
+
+--
+-- TOC entry 5231 (class 0 OID 17113)
+-- Dependencies: 238
+-- Data for Name: attribute_equivalence_set; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.attribute_equivalence_set (attribute_equivalence_id, attribute_equivalence_name, definition, notes) FROM stdin;
+1	product_category	A grouping of related products.	\N
+2	order_number	Unique identifier of an order.	\N
+3	order_status	The current status of an order.	\N
+\.
+
+
+--
+-- TOC entry 5254 (class 0 OID 50366)
+-- Dependencies: 261
+-- Data for Name: attribute_standard; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.attribute_standard (attribute_id, standard_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5252 (class 0 OID 25687)
+-- Dependencies: 259
+-- Data for Name: attribute_subject; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.attribute_subject (attribute_id, subject_name) FROM stdin;
+3	product
+5	product
+5	cost
+6	product
+6	market
+8	product
+9	stock
+10	product
+12	shipper
+14	shipper
+15	shipper
+17	supplier
+18	supplier
+21	supplier
+20	supplier
+23	review
+23	product
+24	review
+24	product
+26	order
+28	customer
+29	customer
+30	customer
+31	customer
+33	person
+33	employee
+34	person
+34	employee
+35	person
+35	employee
+38	finance
+38	cash_outflow
+38	employee
+38	cash_flow
+39	cash_flow
+39	employee
+39	cash_outflow
+39	finance
+40	organization
+41	organization
+42	organization
+42	employee
+46	hiring
+46	person
+47	hiring
+47	person
+48	hiring
+49	hiring
+50	hiring
+51	hiring
+52	hiring
+54	market
+55	market
+54	advertising
+55	advertising
+56	advertising
+56	market
+58	customer
+59	customer
+60	market
+61	market
+61	cash_flow
+62	market
+62	cash_flow
+63	finance
+64	cash_flow
+64	finance
+65	cash_flow
+65	finance
+66	cash_flow
+66	finance
+67	cash_flow
+67	finance
+68	cash_flow
+68	finance
+69	cash_flow
+69	finance
+70	cash_flow
+70	finance
+71	cash_outflow
+71	cash_flow
+71	finance
+72	finance
+72	cash_flow
+73	finance
+73	cash_flow
+74	finance
+74	cash_flow
+75	finance
+75	cash_flow
+77	sale
+78	sale
+79	cash_flow
+82	cash_flow
+83	cash_flow
+\.
+
+
+--
+-- TOC entry 5247 (class 0 OID 25623)
+-- Dependencies: 254
+-- Data for Name: data_exchange_standard; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.data_exchange_standard (standard_id, standard_name, reference) FROM stdin;
+1	Is not a standard	None
+\.
+
+
+--
+-- TOC entry 5211 (class 0 OID 16643)
+-- Dependencies: 218
+-- Data for Name: data_object; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.data_object (data_object_id, data_object_name, definition, notes, data_object_equivalence_set) FROM stdin;
+1	customer_order	information about a customer's order for a single product	If there are multiple products ordered at once, these a split into multiple orders, one per product.	\N
+3	stock_decrement	amount of stock depletion of a single product due to an order	\N	\N
+2	shipping_request	the ordering app request to the shipping app for a shipment 	\N	\N
+4	supplier_request	a request from Acme to a supplier to replenish stocks of a single product	\N	\N
+\.
+
+
+--
+-- TOC entry 5229 (class 0 OID 17078)
+-- Dependencies: 236
+-- Data for Name: data_object_equivalence_set; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.data_object_equivalence_set (object_equivalence_id, object_equivalence_name, definition, notes) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5255 (class 0 OID 50381)
+-- Dependencies: 262
+-- Data for Name: data_object_standard; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.data_object_standard (data_object_id, standard_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5213 (class 0 OID 16772)
+-- Dependencies: 220
+-- Data for Name: dataflow; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dataflow (dataflow_id, dataflow_description, max_classification, fully_encrypted, source_id, destination_id, "ETL_method", link_protocol_diagram_url, physical_protocol_diagram_url, poc, max_gb_per_second) FROM stdin;
+43	Orders data is extracted by the orders aggregations node.  	unclassified	yes	29	34	SQL SELECT query on the orders table in the operations database.	www.acme.com/df-43-link-diagram	www.acme.com/df-43-physical-diagram	10	1
+1	Leadership and their analysts submit  PowerBI and SQL queries to the Business Analytics app.	unclassified	no	40	30	User generated queries are ingested by the Business Analytics API.  www.acme.com/ba-api	www.acme.com/df1-link-diagram	www.acme.com/df1-physical-diagram	10	0.01
+2	Query results are passed back, from the Business Analytics app to the leader or analyst assisting.  	unclassified	no	30	40	User reads output from Business Analytics API.	www.acme.com/df2-link-diagram	www.acme.com/df2-physical-diagram	10	0.1
+10	Customer manipulates user interface to select product and quantity using the ordering app interface.	unclassified	no	41	36	User manipulates the ordering user interface to select a product and quantity.	www.acme.com/df10-link-diagram	www.acme.com/df10-physical-diagram	10	1
+13	ordering app updates operations database with new order and stocking decrement. 	unclassified	no	36	29	SQL query that updates the orders and decrements the stock in the products table.	www.acme.com/df13-link-diagram	www.acme.com/df13-physical-diagram	10	1
+12	ordering app notifies shipping app of order	unclassified	no	36	35	API description of shipping app at www.acme.com/shipping_API	www.acme.com/df12-link-diagram	www.acme.com/df12-physical-diagram	10	1
+14	ordering app notifies stocking app of order	unclassified	no	36	37	API of stocking app at www.acme.com/stocking_API	www.acme.com/df14-link-diagram	www.acme.com/df14-physical-diagram	10	10
+23	shipping app notifies shipper of shipment request.	unclassified	no	35	42	email sent to shipper POC	www.acme.com/df23-link-diagram	www.acme.com/df23-physical-diagram	10	5
+30	stocking app requests stocking of a particular product if low by a specific quantity.	unclassified	no	37	43	email sent to supplier	www.acme.com/df30-link-diagram	www.acme.com/df30-physical-diagram	10	0.5
+11	The ordering app acts as a server to the customers browser, changing the browser window content responding to user actions.  	unclassified	no	36	41	Typical client server interaction. 	www.acme.com/df-11-link-diagram	www.acme.com/df-11-physical-diagram	12	100
+9	The operations database supplies the ordering node with information about products.	unclassified	yes	29	36	The ordering node uses an SQL SELECT statement to pull product data from the operations database's products table.	www.acme.com/df-9-link-diagram	www.acme.com/df-9-physical-diagram	12	100
+15	The operations database provides preexisting reviews of products to the reviewing node.	unclassified	no	29	38	The reviewing node uses SQL SELECT queries to pull reviews from the reviews table in the operations database. 	www.acme.com/df-15-link-diagram	www.acme.com/df-15-physical-diagram	12	10
+20	The operations database sends the returning node information about a customer's previous orders as well as the status of returns in progress.	unclassified	yes	29	39	The returning node uses SQL queries to pull information about previous orders and returns status.  	www.acme.com/df-20-link-diagram	www.acme.com/df-20-physical-diagram	12	10
+24	The operations database sends customer addresses to the shipping node.	unclassified	yes	29	39	The shipping node queries the customer table in the operations database using a SQL SELECT. 	www.acme.com/df-24-link-diagram	www.acme.com/df-24-physical-diagram	9	100
+28	The operations database provides information about product stocking levels to the stocking node.	unclassified	yes	29	37	The stocking node queries the operations database on the stock status for particular products using SQL on the product table.	www.acme.com/df-28-link-diagram	www.acme.com/df-28-physical-diagram	10	10
+\.
+
+
+--
+-- TOC entry 5256 (class 0 OID 50461)
+-- Dependencies: 263
+-- Data for Name: dataflow_application_protocol; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dataflow_application_protocol (dataflow_id, application_protocol) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5253 (class 0 OID 42147)
+-- Dependencies: 260
+-- Data for Name: dataflow_file; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dataflow_file (dataflow_id, file_format, format_ref_url, file_ref_particulars_url) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5258 (class 0 OID 50486)
+-- Dependencies: 265
+-- Data for Name: dataflow_network_protocol; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dataflow_network_protocol (dataflow_id, network_protocol) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5236 (class 0 OID 17191)
+-- Dependencies: 243
+-- Data for Name: dataflow_nonembedded_attribute; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dataflow_nonembedded_attribute (dataflow_id, attribute_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5235 (class 0 OID 17176)
+-- Dependencies: 242
+-- Data for Name: dataflow_object; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dataflow_object (dataflow_id, data_object_id) FROM stdin;
+13	1
+12	2
+14	3
+23	2
+30	4
+\.
+
+
+--
+-- TOC entry 5257 (class 0 OID 50476)
+-- Dependencies: 264
+-- Data for Name: dataflow_transport_protocol; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dataflow_transport_protocol (dataflow_id, transport_protocol) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5241 (class 0 OID 25507)
+-- Dependencies: 248
+-- Data for Name: dataset; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dataset (node_id, dataset_name, notes, dataset_type, dataset_maturity, disposition, start_date, end_date, most_recent_update, update_periodicity, system_of_record, point_of_contact, dataset_url, classification_level, physical_location, quality_control, dataset_documentation_url, description) FROM stdin;
+26	marketing	\N	relational	operational_and_curated	active	2018-12-25	\N	\N	1 day	\N	9	"acme.com/marketing_database_access"	unclassified	Seattle, WA	yes	'acme.com/marketing_database_doc'	\N
+27	hr	\N	relational	operational_and_curated	active	2019-11-23	\N	\N	7 days	\N	11	"acme.com/hr_database_access"	unclassified	Seattle, WA	yes	'acme.com/hr_database_doc'	\N
+28	finance	\N	relational	operational_and_curated	active	2020-10-31	\N	\N	2 days	\N	10	"acme.com/finance_database_access"	unclassified	Seattle, WA	yes	'acme.com/finance_database_doc'	\N
+29	operations	\N	relational	operational_and_curated	active	2021-04-20	\N	\N	00:00:01	\N	10	"acme.com/operations_database_access"	unclassified	Arlington, VA	yes	'acme.com/operations_database_doc'	\N
+\.
+
+
+--
+-- TOC entry 5250 (class 0 OID 25657)
+-- Dependencies: 257
+-- Data for Name: dataset_subject; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dataset_subject (node_id, subject_name) FROM stdin;
+26	advertising
+26	market
+27	candidate
+27	employee
+27	person
+27	supervisor
+27	department
+28	accounting
+28	cash_flow
+28	cash_outflow
+28	finance
+28	pay
+29	operation
+27	organization
+29	product
+29	review
+29	return
+29	shipper
+29	sale
+29	stock
+29	supplier
+28	sale
+29	cost
+\.
+
+
+--
+-- TOC entry 5220 (class 0 OID 16940)
+-- Dependencies: 227
+-- Data for Name: dataset_table; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dataset_table (table_id, node_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5237 (class 0 OID 25418)
+-- Dependencies: 244
+-- Data for Name: enum_value; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.enum_value (enum_name, enum_value) FROM stdin;
+yes_no	yes
+yes_no	no
+product_category	books
+product_category	clothes
+product_category	sports_outdoors
+product_category	electronics
+order_status	submitted
+order_status	shipped
+order_status	received
+order_status	returned
+hiring_status	applied
+hiring_status	selected_for_interview
+hiring_status	offer_made
+hiring_status	hired
+flow_category	sales
+flow_category	interest
+flow_category	loan_proceeds
+flow_category	investment
+flow_category	operating_expenses
+flow_category	cost_of_goods_sold
+flow_category	taxes
+flow_category	interest_payments
+flow_category	capital_expenditures
+\.
+
+
+--
+-- TOC entry 5240 (class 0 OID 25501)
+-- Dependencies: 247
+-- Data for Name: node; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.node (node_id, node_type) FROM stdin;
+26	dataset
+27	dataset
+29	dataset
+28	dataset
+30	processing
+31	processing
+32	processing
+33	processing
+34	processing
+35	processing
+36	processing
+37	processing
+38	processing
+39	processing
+40	user
+41	user
+42	user
+43	user
+44	user
+45	user
+\.
+
+
+--
+-- TOC entry 5232 (class 0 OID 17131)
+-- Dependencies: 239
+-- Data for Name: object_attribute; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.object_attribute (data_object_id, attribute_id) FROM stdin;
+1	27
+1	2
+1	86
+1	87
+2	28
+2	29
+2	30
+2	2
+2	86
+3	2
+3	86
+3	16
+4	2
+4	88
+\.
+
+
+--
+-- TOC entry 5249 (class 0 OID 25642)
+-- Dependencies: 256
+-- Data for Name: object_equivalence_set; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.object_equivalence_set (object_equivalence_set_id, object_equivalence_set_name, description, notes) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5251 (class 0 OID 25672)
+-- Dependencies: 258
+-- Data for Name: object_subject; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.object_subject (object_id, subject_name) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5233 (class 0 OID 17146)
+-- Dependencies: 240
+-- Data for Name: parent_child_object; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.parent_child_object (data_object_id_parent, data_object_id_child) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5217 (class 0 OID 16810)
+-- Dependencies: 224
+-- Data for Name: poc; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.poc (poc_id, first_name, last_name, email, organization, phone) FROM stdin;
+9	John	Smith	JSmith@acme.com	Acme Marketing	234-567-8901
+10	Jane	Doe	JDoe@acme.com	Acme IT	345-678-9012
+11	Peter	Anderson	PAnderson@acme.com	Acme Human Resources	456-890-1234
+12	Tom	Jones	TJones@acme.com	Sales Support	321-876-5432
+\.
+
+
+--
+-- TOC entry 5244 (class 0 OID 25555)
+-- Dependencies: 251
+-- Data for Name: processing_node; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.processing_node (node_id, processing_node_name, description, notes, point_of_contact, is_a_user_application) FROM stdin;
+33	payroll	This application is used to set salaries and track salary payments.	Also is used for travel expenses.  	11	yes
+34	orders_aggregation	This processing node automatically takes transaction data and aggregates it for analytical purposes. 	\N	10	no
+35	shipping	This application is used to arrange and track shipments.  	\N	12	yes
+36	ordering	This application allows customers to submit orders and it also tracks the status of those orders.	\N	12	yes
+37	stocking	This application is used to track stocks and also to enter restocking orders as needed. 	\N	10	yes
+38	reviewing	This application is used by customers to review products and it also posts those reviews on ordering pages. 	\N	12	yes
+39	returning	This application is used by customers to return items and it also tracks the status of those returns. 	\N	12	yes
+30	business_analytics	This application provides key analyses for corporate leadership.	\N	10	yes
+31	hiring	This application is used by HR to conduct hiring workflows.	\N	11	yes
+32	employee_hours	This application tracks, hours worked, leave, and sick days.	\N	11	yes
+\.
+
+
+--
+-- TOC entry 5245 (class 0 OID 25587)
+-- Dependencies: 252
+-- Data for Name: processing_node_algorithm; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.processing_node_algorithm (node_id, algorithm_id) FROM stdin;
+30	1
+31	2
+32	3
+33	4
+34	5
+35	6
+36	7
+37	8
+38	9
+39	10
+\.
+
+
+--
+-- TOC entry 5225 (class 0 OID 17029)
+-- Dependencies: 232
+-- Data for Name: subject; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.subject (subject_name, description) FROM stdin;
+abstract	Things that an analyst is probably not going to search for directly. A sort of non-subject.
+department	Departments within Acme.
+person	Customers, reviewers, employees, and any other people.
+product	Information about Acme products.
+review	Reviews of products.
+ship	Information about shipping companies used by Acme.
+supplier	Companies that sell products through Acme.
+employee	a person that works for Acme
+supervisor	the boss of an employee
+department_head	the leader of a department
+customer	a person who buys Acme products
+candidate	hiring candidate
+point_of_contact	a person to contact on a particular matter
+product_cost	the cost of a product
+business_partner	a company that does business with Acme
+shipper	a company that ships Acme goods
+order	Information about Acme orders.
+transaction	an exchange of goods, services, or funds
+return	the return of a product
+sale	the selling of a product
+operation	Acme business activities
+stock	acquiring and storing goods for sale
+market	a market segment or the act of marketing
+advertising	the act of promoting a product
+finance	the domain of accounting, investments, and economic value
+pay	salary and salary payments
+accounting	the tracking of monetary transactions
+cash_flow	value that moves from one place to another
+income	positive cashflow 
+cash_outflow	monetary value leaving Acme
+organization	the structure of Acme
+cost	the cost of a product
+hiring	the process of selecting and hiring new talent
+administration	Business administration
+\.
+
+
+--
+-- TOC entry 5227 (class 0 OID 17057)
+-- Dependencies: 234
+-- Data for Name: synonym; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.synonym (subject_name_a, subject_name_b) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5222 (class 0 OID 16971)
+-- Dependencies: 229
+-- Data for Name: system; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.system (system_id, system_name, description, notes, point_of_contact, organization, security_level, physical_location) FROM stdin;
+1	Administration	This system is used to manage all generic administrative functions typical of any business.	\N	11	Office of the CEO	unclassified	Crystal City, Virginia
+2	Transactions	This system is used for the managment of all mail order activities	\N	10	Chief Operations Office	unclassified	Seattle, Washington
+\.
+
+
+--
+-- TOC entry 5223 (class 0 OID 16999)
+-- Dependencies: 230
+-- Data for Name: system_dataset; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.system_dataset (system_id, node_id) FROM stdin;
+1	26
+1	27
+1	28
+2	28
+2	29
+\.
+
+
+--
+-- TOC entry 5224 (class 0 OID 17014)
+-- Dependencies: 231
+-- Data for Name: system_processing_node; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.system_processing_node (system_id, processing_node_id) FROM stdin;
+1	30
+1	31
+1	32
+1	33
+1	34
+2	34
+2	35
+2	36
+2	37
+2	38
+2	39
+\.
+
+
+--
+-- TOC entry 5260 (class 0 OID 91496)
+-- Dependencies: 267
+-- Data for Name: system_subject; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.system_subject (system_id, subject_name) FROM stdin;
+1	administration
+2	operation
+2	transaction
+\.
+
+
+--
+-- TOC entry 5234 (class 0 OID 17161)
+-- Dependencies: 241
+-- Data for Name: table_attribute; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.table_attribute (table_id, attribute_id, primary_key, foreign_key_table, composite_key, foreign_key_key) FROM stdin;
+1	2	yes	\N	no	\N
+1	3	no	\N	no	\N
+1	4	no	\N	no	\N
+1	5	no	\N	no	\N
+1	6	no	\N	no	\N
+1	16	no	2	no	16
+1	8	no	\N	no	\N
+1	9	no	\N	no	\N
+1	10	no	\N	no	\N
+6	11	yes	\N	no	\N
+6	12	no	\N	no	\N
+6	13	no	\N	no	\N
+6	14	no	\N	no	\N
+6	15	no	\N	no	\N
+2	11	yes	\N	no	\N
+2	12	no	\N	no	\N
+2	13	no	\N	no	\N
+2	14	no	\N	no	\N
+2	15	no	\N	no	\N
+7	16	yes	2	yes	16
+7	6	yes	1	yes	2
+3	22	yes	\N	no	\N
+3	27	no	5	no	27
+3	2	no	1	no	2
+3	23	no	\N	no	\N
+3	24	no	\N	no	\N
+4	25	yes	\N	no	\N
+4	2	no	1	no	2
+4	27	no	5	no	27
+4	11	no	6	no	11
+4	26	no	\N	no	\N
+5	27	yes	\N	no	\N
+5	28	no	\N	no	\N
+5	29	no	\N	no	\N
+5	30	no	\N	no	\N
+5	31	no	\N	no	\N
+8	32	yes	\N	no	\N
+8	33	no	\N	no	\N
+8	34	no	\N	no	\N
+8	35	no	\N	no	\N
+8	84	no	\N	no	\N
+8	40	no	9	no	40
+8	36	no	\N	no	32
+13	37	yes	\N	no	\N
+13	32	no	8	no	32
+13	38	no	\N	no	\N
+13	39	no	\N	no	\N
+9	40	yes	\N	no	\N
+9	41	no	\N	no	\N
+9	42	no	8	no	32
+12	43	yes	\N	no	\N
+12	46	no	\N	no	\N
+12	47	no	\N	no	\N
+12	48	no	\N	no	\N
+12	49	no	\N	no	\N
+12	50	no	\N	no	\N
+12	51	no	\N	no	\N
+12	52	no	\N	no	\N
+14	53	yes	\N	no	\N
+14	54	no	\N	no	\N
+14	55	no	\N	no	\N
+14	56	no	8	no	32
+15	57	yes	\N	no	\N
+15	27	no	5	no	27
+15	32	no	8	no	32
+15	58	no	\N	no	\N
+15	59	no	\N	no	\N
+10	60	yes	\N	yes	\N
+10	61	yes	\N	yes	\N
+10	62	no	\N	no	\N
+16	63	yes	\N	no	\N
+16	64	no	\N	no	\N
+16	65	no	\N	no	\N
+16	66	no	\N	no	\N
+16	67	no	\N	no	\N
+17	68	yes	\N	no	\N
+17	69	no	\N	no	\N
+17	70	no	\N	no	\N
+17	75	no	\N	no	\N
+17	72	no	\N	no	\N
+17	71	no	\N	no	\N
+17	73	no	\N	no	\N
+17	74	no	\N	no	\N
+18	76	yes	\N	no	\N
+18	77	no	\N	no	\N
+18	78	no	\N	no	\N
+18	79	no	\N	no	\N
+18	82	no	\N	no	\N
+18	83	no	\N	no	\N
+\.
+
+
+--
+-- TOC entry 5238 (class 0 OID 25447)
+-- Dependencies: 245
+-- Data for Name: table_subject; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.table_subject ("table_ID", subject_name) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5226 (class 0 OID 17041)
+-- Dependencies: 233
+-- Data for Name: taxonomy; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.taxonomy (subject, sub_subject) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5215 (class 0 OID 16798)
+-- Dependencies: 222
+-- Data for Name: ums_table; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ums_table (table_id, table_name, definition, table_notes) FROM stdin;
+8	employee	Employee descriptions	none yet
+9	department	Departments within the company	none yet
+1	product	Products for sale	none yet
+2	supplier	Suppliers of products	none yet
+3	product_review	Buyer reviews of products	none yet
+4	order	Orders of products by buyers	none yet
+5	customer	People who buy from the mail order company	none yet
+6	shipper	Companies that ship products from suppliers to customers	none yet
+10	market_category_sales	Market categories used by Acme with sales by year.	none yet
+7	supplier_product_category	Suppliers and their various product categories	a many to many table.
+12	candidate	Potential hires	none yet
+13	payroll	records of payroll payments	none yet
+14	advertising_campaign	list of advertising campaigns 	\N
+15	customer_interaction	records of customers interacting with Acme representatives	\N
+16	balance_sheet	balance sheet following standard accounting practice	\N
+17	income_statement	income statement following standard accounting practice	\N
+18	cash_flow	cash flow records following standard accounting practice	\N
+\.
+
+
+--
+-- TOC entry 5259 (class 0 OID 58705)
+-- Dependencies: 266
+-- Data for Name: user_role; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.user_role (node_id, role_name, "Description") FROM stdin;
+40	leadership with analysts	Leaders and marketing specialists with the help of analysts.
+41	customers	People who buy Acme products
+42	shippers	People from companies that ship Acme products.
+43	suppliers	People from companies that manufacture or supply Acme products.
+44	human resources	People who manage Acme human resources.
+45	employees	People who work for Acme including their supervisors, as well as HR.  
+\.
+
+
+--
+-- TOC entry 5302 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: algorithm_algorithm_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.algorithm_algorithm_id_seq', 10, true);
+
+
+--
+-- TOC entry 5303 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: attribute_attribute_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.attribute_attribute_id_seq', 88, true);
+
+
+--
+-- TOC entry 5304 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: attribute_equivalence_set_attribute_equivalence_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.attribute_equivalence_set_attribute_equivalence_id_seq', 3, true);
+
+
+--
+-- TOC entry 5305 (class 0 OID 0)
+-- Dependencies: 253
+-- Name: data_exchange_standard_standard_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.data_exchange_standard_standard_id_seq', 1, true);
+
+
+--
+-- TOC entry 5306 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: data_object_data_object_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.data_object_data_object_id_seq', 4, true);
+
+
+--
+-- TOC entry 5307 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: data_object_equivalence_set_object_equivalence_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.data_object_equivalence_set_object_equivalence_id_seq', 1, false);
+
+
+--
+-- TOC entry 5308 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: dataflow_dataflow_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dataflow_dataflow_id_seq', 1, false);
+
+
+--
+-- TOC entry 5309 (class 0 OID 0)
+-- Dependencies: 246
+-- Name: node_node_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.node_node_id_seq', 39, true);
+
+
+--
+-- TOC entry 5310 (class 0 OID 0)
+-- Dependencies: 255
+-- Name: object_equivalence_set_object_equivalence_set_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.object_equivalence_set_object_equivalence_set_id_seq', 1, false);
+
+
+--
+-- TOC entry 5311 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: poc_poc_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.poc_poc_id_seq', 12, true);
+
+
+--
+-- TOC entry 5312 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: system_system_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.system_system_id_seq', 2, true);
+
+
+--
+-- TOC entry 5313 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: ums_table_table_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.ums_table_table_id_seq', 18, true);
+
+
+--
+-- TOC entry 4945 (class 2606 OID 16886)
+-- Name: algorithm algorithm_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.algorithm
+    ADD CONSTRAINT algorithm_pkey PRIMARY KEY (algorithm_id);
+
+
+--
+-- TOC entry 4963 (class 2606 OID 17120)
+-- Name: attribute_equivalence_set attribute_equivalence_set_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.attribute_equivalence_set
+    ADD CONSTRAINT attribute_equivalence_set_pkey PRIMARY KEY (attribute_equivalence_id);
+
+
+--
+-- TOC entry 4935 (class 2606 OID 16641)
+-- Name: attribute attribute_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.attribute
+    ADD CONSTRAINT attribute_pkey PRIMARY KEY (attribute_id);
+
+
+--
+-- TOC entry 5001 (class 2606 OID 50370)
+-- Name: attribute_standard attribute_standard_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.attribute_standard
+    ADD CONSTRAINT attribute_standard_pkey PRIMARY KEY (attribute_id, standard_id);
+
+
+--
+-- TOC entry 4997 (class 2606 OID 25691)
+-- Name: attribute_subject attribute_subject_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.attribute_subject
+    ADD CONSTRAINT attribute_subject_pkey PRIMARY KEY (attribute_id, subject_name);
+
+
+--
+-- TOC entry 4989 (class 2606 OID 25630)
+-- Name: data_exchange_standard data_exchange_standard_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.data_exchange_standard
+    ADD CONSTRAINT data_exchange_standard_pkey PRIMARY KEY (standard_id);
+
+
+--
+-- TOC entry 4961 (class 2606 OID 17085)
+-- Name: data_object_equivalence_set data_object_equivalence_set_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.data_object_equivalence_set
+    ADD CONSTRAINT data_object_equivalence_set_pkey PRIMARY KEY (object_equivalence_id);
+
+
+--
+-- TOC entry 4937 (class 2606 OID 16650)
+-- Name: data_object data_object_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.data_object
+    ADD CONSTRAINT data_object_pkey PRIMARY KEY (data_object_id);
+
+
+--
+-- TOC entry 5003 (class 2606 OID 50385)
+-- Name: data_object_standard data_object_standard_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.data_object_standard
+    ADD CONSTRAINT data_object_standard_pkey PRIMARY KEY (data_object_id, standard_id);
+
+
+--
+-- TOC entry 5005 (class 2606 OID 50465)
+-- Name: dataflow_application_protocol dataflow_application_protocol_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataflow_application_protocol
+    ADD CONSTRAINT dataflow_application_protocol_pkey PRIMARY KEY (dataflow_id, application_protocol);
+
+
+--
+-- TOC entry 4973 (class 2606 OID 17195)
+-- Name: dataflow_nonembedded_attribute dataflow_attributes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataflow_nonembedded_attribute
+    ADD CONSTRAINT dataflow_attributes_pkey PRIMARY KEY (dataflow_id, attribute_id);
+
+
+--
+-- TOC entry 5009 (class 2606 OID 50490)
+-- Name: dataflow_network_protocol dataflow_network_protocol_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataflow_network_protocol
+    ADD CONSTRAINT dataflow_network_protocol_pkey PRIMARY KEY (dataflow_id, network_protocol);
+
+
+--
+-- TOC entry 4971 (class 2606 OID 17180)
+-- Name: dataflow_object dataflow_objects_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataflow_object
+    ADD CONSTRAINT dataflow_objects_pkey PRIMARY KEY (dataflow_id, data_object_id);
+
+
+--
+-- TOC entry 4939 (class 2606 OID 16779)
+-- Name: dataflow dataflow_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataflow
+    ADD CONSTRAINT dataflow_pkey PRIMARY KEY (dataflow_id);
+
+
+--
+-- TOC entry 4999 (class 2606 OID 42153)
+-- Name: dataflow_file dataflow_syntactic_file_format_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataflow_file
+    ADD CONSTRAINT dataflow_syntactic_file_format_pkey PRIMARY KEY (dataflow_id, file_format);
+
+
+--
+-- TOC entry 5007 (class 2606 OID 50480)
+-- Name: dataflow_transport_protocol dataflow_transport_protocol_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataflow_transport_protocol
+    ADD CONSTRAINT dataflow_transport_protocol_pkey PRIMARY KEY (dataflow_id, transport_protocol);
+
+
+--
+-- TOC entry 4983 (class 2606 OID 25514)
+-- Name: dataset dataset_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataset
+    ADD CONSTRAINT dataset_pkey PRIMARY KEY (node_id);
+
+
+--
+-- TOC entry 4993 (class 2606 OID 25661)
+-- Name: dataset_subject dataset_subject_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataset_subject
+    ADD CONSTRAINT dataset_subject_pkey PRIMARY KEY (node_id, subject_name);
+
+
+--
+-- TOC entry 4947 (class 2606 OID 25567)
+-- Name: dataset_table dataset_table_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataset_table
+    ADD CONSTRAINT dataset_table_pkey PRIMARY KEY (node_id, table_id);
+
+
+--
+-- TOC entry 4975 (class 2606 OID 50407)
+-- Name: enum_value enum_value_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.enum_value
+    ADD CONSTRAINT enum_value_pkey PRIMARY KEY (enum_name, enum_value);
+
+
+--
+-- TOC entry 4979 (class 2606 OID 66905)
+-- Name: node node_id; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.node
+    ADD CONSTRAINT node_id UNIQUE (node_id) INCLUDE (node_id);
+
+
+--
+-- TOC entry 4981 (class 2606 OID 25506)
+-- Name: node node_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.node
+    ADD CONSTRAINT node_pkey PRIMARY KEY (node_id);
+
+
+--
+-- TOC entry 4965 (class 2606 OID 17135)
+-- Name: object_attribute object_attribute_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.object_attribute
+    ADD CONSTRAINT object_attribute_pkey PRIMARY KEY (data_object_id, attribute_id);
+
+
+--
+-- TOC entry 4991 (class 2606 OID 25649)
+-- Name: object_equivalence_set object_equivalence_set_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.object_equivalence_set
+    ADD CONSTRAINT object_equivalence_set_pkey PRIMARY KEY (object_equivalence_set_id);
+
+
+--
+-- TOC entry 4995 (class 2606 OID 25676)
+-- Name: object_subject object_subject_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.object_subject
+    ADD CONSTRAINT object_subject_pkey PRIMARY KEY (object_id, subject_name);
+
+
+--
+-- TOC entry 4943 (class 2606 OID 16817)
+-- Name: poc poc_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.poc
+    ADD CONSTRAINT poc_pkey PRIMARY KEY (poc_id);
+
+
+--
+-- TOC entry 4987 (class 2606 OID 25602)
+-- Name: processing_node_algorithm processing_node_algorithm_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.processing_node_algorithm
+    ADD CONSTRAINT processing_node_algorithm_pkey PRIMARY KEY (node_id, algorithm_id);
+
+
+--
+-- TOC entry 4985 (class 2606 OID 25586)
+-- Name: processing_node processing_node_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.processing_node
+    ADD CONSTRAINT processing_node_pkey PRIMARY KEY (node_id);
+
+
+--
+-- TOC entry 4967 (class 2606 OID 17150)
+-- Name: parent_child_object sub_object_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.parent_child_object
+    ADD CONSTRAINT sub_object_pkey PRIMARY KEY (data_object_id_parent, data_object_id_child);
+
+
+--
+-- TOC entry 4955 (class 2606 OID 17035)
+-- Name: subject subject_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.subject
+    ADD CONSTRAINT subject_pkey PRIMARY KEY (subject_name);
+
+
+--
+-- TOC entry 4959 (class 2606 OID 17061)
+-- Name: synonym synonyms_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.synonym
+    ADD CONSTRAINT synonyms_pkey PRIMARY KEY (subject_name_a, subject_name_b);
+
+
+--
+-- TOC entry 4951 (class 2606 OID 25604)
+-- Name: system_dataset system_dataset_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system_dataset
+    ADD CONSTRAINT system_dataset_pkey PRIMARY KEY (system_id, node_id);
+
+
+--
+-- TOC entry 4949 (class 2606 OID 16978)
+-- Name: system system_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system
+    ADD CONSTRAINT system_pkey PRIMARY KEY (system_id);
+
+
+--
+-- TOC entry 4953 (class 2606 OID 25611)
+-- Name: system_processing_node system_processing_node_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system_processing_node
+    ADD CONSTRAINT system_processing_node_pkey PRIMARY KEY (system_id, processing_node_id);
+
+
+--
+-- TOC entry 5013 (class 2606 OID 91523)
+-- Name: system_subject system_subject_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system_subject
+    ADD CONSTRAINT system_subject_pkey PRIMARY KEY (system_id, subject_name);
+
+
+--
+-- TOC entry 4969 (class 2606 OID 17165)
+-- Name: table_attribute table_attribute_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.table_attribute
+    ADD CONSTRAINT table_attribute_pkey PRIMARY KEY (table_id, attribute_id);
+
+
+--
+-- TOC entry 4977 (class 2606 OID 25453)
+-- Name: table_subject table_subject_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.table_subject
+    ADD CONSTRAINT table_subject_pkey PRIMARY KEY ("table_ID", subject_name);
+
+
+--
+-- TOC entry 4957 (class 2606 OID 17045)
+-- Name: taxonomy taxonomy_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.taxonomy
+    ADD CONSTRAINT taxonomy_pkey PRIMARY KEY (subject, sub_subject);
+
+
+--
+-- TOC entry 4941 (class 2606 OID 16805)
+-- Name: ums_table ums_table_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ums_table
+    ADD CONSTRAINT ums_table_pkey PRIMARY KEY (table_id);
+
+
+--
+-- TOC entry 5011 (class 2606 OID 58711)
+-- Name: user_role user_role_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_role
+    ADD CONSTRAINT user_role_pkey PRIMARY KEY (node_id);
+
+
+--
+-- TOC entry 5060 (class 2606 OID 58712)
+-- Name: user_role a; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_role
+    ADD CONSTRAINT a FOREIGN KEY (node_id) REFERENCES public.node(node_id) NOT VALID;
+
+
+--
+-- TOC entry 5017 (class 2606 OID 16887)
+-- Name: algorithm algorithm_point_of_contact_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.algorithm
+    ADD CONSTRAINT algorithm_point_of_contact_fkey FOREIGN KEY (point_of_contact) REFERENCES public.poc(poc_id);
+
+
+--
+-- TOC entry 5014 (class 2606 OID 17126)
+-- Name: attribute attribute_equivalence_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.attribute
+    ADD CONSTRAINT attribute_equivalence_id_fkey FOREIGN KEY (attribute_equivalence_id) REFERENCES public.attribute_equivalence_set(attribute_equivalence_id);
+
+
+--
+-- TOC entry 5053 (class 2606 OID 50371)
+-- Name: attribute_standard attribute_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.attribute_standard
+    ADD CONSTRAINT attribute_id FOREIGN KEY (attribute_id) REFERENCES public.attribute(attribute_id);
+
+
+--
+-- TOC entry 5051 (class 2606 OID 25692)
+-- Name: attribute_subject attribute_subject_attribute_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.attribute_subject
+    ADD CONSTRAINT attribute_subject_attribute_id_fkey FOREIGN KEY (attribute_id) REFERENCES public.attribute(attribute_id) NOT VALID;
+
+
+--
+-- TOC entry 5052 (class 2606 OID 25697)
+-- Name: attribute_subject attribute_subject_subject_name_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.attribute_subject
+    ADD CONSTRAINT attribute_subject_subject_name_fkey FOREIGN KEY (subject_name) REFERENCES public.subject(subject_name) NOT VALID;
+
+
+--
+-- TOC entry 5015 (class 2606 OID 25650)
+-- Name: data_object data_object_data_object_equivalence_set_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.data_object
+    ADD CONSTRAINT data_object_data_object_equivalence_set_fkey FOREIGN KEY (data_object_equivalence_set) REFERENCES public.data_object_equivalence_set(object_equivalence_id) NOT VALID;
+
+
+--
+-- TOC entry 5055 (class 2606 OID 50386)
+-- Name: data_object_standard data_object_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.data_object_standard
+    ADD CONSTRAINT data_object_id FOREIGN KEY (data_object_id) REFERENCES public.data_object(data_object_id);
+
+
+--
+-- TOC entry 5039 (class 2606 OID 17201)
+-- Name: dataflow_nonembedded_attribute dataflow_attributes_attribute_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataflow_nonembedded_attribute
+    ADD CONSTRAINT dataflow_attributes_attribute_id_fkey FOREIGN KEY (attribute_id) REFERENCES public.attribute(attribute_id);
+
+
+--
+-- TOC entry 5040 (class 2606 OID 17196)
+-- Name: dataflow_nonembedded_attribute dataflow_attributes_dataflow_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataflow_nonembedded_attribute
+    ADD CONSTRAINT dataflow_attributes_dataflow_id_fkey FOREIGN KEY (dataflow_id) REFERENCES public.dataflow(dataflow_id);
+
+
+--
+-- TOC entry 5057 (class 2606 OID 50466)
+-- Name: dataflow_application_protocol dataflow_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataflow_application_protocol
+    ADD CONSTRAINT dataflow_id FOREIGN KEY (dataflow_id) REFERENCES public.dataflow(dataflow_id);
+
+
+--
+-- TOC entry 5058 (class 2606 OID 50481)
+-- Name: dataflow_transport_protocol dataflow_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataflow_transport_protocol
+    ADD CONSTRAINT dataflow_id FOREIGN KEY (dataflow_id) REFERENCES public.dataflow(dataflow_id);
+
+
+--
+-- TOC entry 5059 (class 2606 OID 50491)
+-- Name: dataflow_network_protocol dataflow_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataflow_network_protocol
+    ADD CONSTRAINT dataflow_id FOREIGN KEY (dataflow_id) REFERENCES public.dataflow(dataflow_id);
+
+
+--
+-- TOC entry 5037 (class 2606 OID 17186)
+-- Name: dataflow_object dataflow_objects_data_object_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataflow_object
+    ADD CONSTRAINT dataflow_objects_data_object_id_fkey FOREIGN KEY (data_object_id) REFERENCES public.data_object(data_object_id);
+
+
+--
+-- TOC entry 5038 (class 2606 OID 17181)
+-- Name: dataflow_object dataflow_objects_dataflow_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataflow_object
+    ADD CONSTRAINT dataflow_objects_dataflow_id_fkey FOREIGN KEY (dataflow_id) REFERENCES public.dataflow(dataflow_id);
+
+
+--
+-- TOC entry 5018 (class 2606 OID 25568)
+-- Name: dataset_table dataset; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataset_table
+    ADD CONSTRAINT dataset FOREIGN KEY (node_id) REFERENCES public.dataset(node_id) NOT VALID;
+
+
+--
+-- TOC entry 5048 (class 2606 OID 25667)
+-- Name: dataset_subject dataset_subject_subject_name_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataset_subject
+    ADD CONSTRAINT dataset_subject_subject_name_fkey FOREIGN KEY (subject_name) REFERENCES public.subject(subject_name) NOT VALID;
+
+
+--
+-- TOC entry 5019 (class 2606 OID 16950)
+-- Name: dataset_table dataset_table_table_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataset_table
+    ADD CONSTRAINT dataset_table_table_id_fkey FOREIGN KEY (table_id) REFERENCES public.ums_table(table_id);
+
+
+--
+-- TOC entry 5033 (class 2606 OID 99688)
+-- Name: table_attribute foreign_key_key; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.table_attribute
+    ADD CONSTRAINT foreign_key_key FOREIGN KEY (foreign_key_key) REFERENCES public.attribute(attribute_id) NOT VALID;
+
+
+--
+-- TOC entry 5043 (class 2606 OID 66915)
+-- Name: dataset node_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataset
+    ADD CONSTRAINT node_id FOREIGN KEY (node_id) REFERENCES public.node(node_id);
+
+
+--
+-- TOC entry 5314 (class 0 OID 0)
+-- Dependencies: 5043
+-- Name: CONSTRAINT node_id ON dataset; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON CONSTRAINT node_id ON public.dataset IS 'a dataset is a type of node';
+
+
+--
+-- TOC entry 5045 (class 2606 OID 66940)
+-- Name: processing_node node_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.processing_node
+    ADD CONSTRAINT node_id FOREIGN KEY (node_id) REFERENCES public.node(node_id) NOT VALID;
+
+
+--
+-- TOC entry 5029 (class 2606 OID 17141)
+-- Name: object_attribute object_attribute_attribute_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.object_attribute
+    ADD CONSTRAINT object_attribute_attribute_id_fkey FOREIGN KEY (attribute_id) REFERENCES public.attribute(attribute_id);
+
+
+--
+-- TOC entry 5030 (class 2606 OID 17136)
+-- Name: object_attribute object_attribute_data_object_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.object_attribute
+    ADD CONSTRAINT object_attribute_data_object_id_fkey FOREIGN KEY (data_object_id) REFERENCES public.data_object(data_object_id);
+
+
+--
+-- TOC entry 5049 (class 2606 OID 25677)
+-- Name: object_subject object_subject_object_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.object_subject
+    ADD CONSTRAINT object_subject_object_id_fkey FOREIGN KEY (object_id) REFERENCES public.data_object(data_object_id);
+
+
+--
+-- TOC entry 5050 (class 2606 OID 25682)
+-- Name: object_subject object_subject_subject_name_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.object_subject
+    ADD CONSTRAINT object_subject_subject_name_fkey FOREIGN KEY (subject_name) REFERENCES public.subject(subject_name) NOT VALID;
+
+
+--
+-- TOC entry 5044 (class 2606 OID 25515)
+-- Name: dataset poc; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataset
+    ADD CONSTRAINT poc FOREIGN KEY (point_of_contact) REFERENCES public.poc(poc_id) NOT VALID;
+
+
+--
+-- TOC entry 5016 (class 2606 OID 50496)
+-- Name: dataflow poc_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dataflow
+    ADD CONSTRAINT poc_id FOREIGN KEY (poc) REFERENCES public.poc(poc_id) NOT VALID;
+
+
+--
+-- TOC entry 5047 (class 2606 OID 25595)
+-- Name: processing_node_algorithm processing_node_algorithm_algorithm_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.processing_node_algorithm
+    ADD CONSTRAINT processing_node_algorithm_algorithm_id_fkey FOREIGN KEY (algorithm_id) REFERENCES public.algorithm(algorithm_id);
+
+
+--
+-- TOC entry 5046 (class 2606 OID 25561)
+-- Name: processing_node processing_node_point_of_contact_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.processing_node
+    ADD CONSTRAINT processing_node_point_of_contact_fkey FOREIGN KEY (point_of_contact) REFERENCES public.poc(poc_id);
+
+
+--
+-- TOC entry 5054 (class 2606 OID 50376)
+-- Name: attribute_standard standard_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.attribute_standard
+    ADD CONSTRAINT standard_id FOREIGN KEY (standard_id) REFERENCES public.data_exchange_standard(standard_id) NOT VALID;
+
+
+--
+-- TOC entry 5056 (class 2606 OID 50391)
+-- Name: data_object_standard standard_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.data_object_standard
+    ADD CONSTRAINT standard_id FOREIGN KEY (standard_id) REFERENCES public.data_exchange_standard(standard_id) NOT VALID;
+
+
+--
+-- TOC entry 5031 (class 2606 OID 17156)
+-- Name: parent_child_object sub_object_data_object_id_child_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.parent_child_object
+    ADD CONSTRAINT sub_object_data_object_id_child_fkey FOREIGN KEY (data_object_id_child) REFERENCES public.data_object(data_object_id);
+
+
+--
+-- TOC entry 5032 (class 2606 OID 17151)
+-- Name: parent_child_object sub_object_data_object_id_parent_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.parent_child_object
+    ADD CONSTRAINT sub_object_data_object_id_parent_fkey FOREIGN KEY (data_object_id_parent) REFERENCES public.data_object(data_object_id);
+
+
+--
+-- TOC entry 5061 (class 2606 OID 91529)
+-- Name: system_subject subject; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system_subject
+    ADD CONSTRAINT subject FOREIGN KEY (subject_name) REFERENCES public.subject(subject_name) NOT VALID;
+
+
+--
+-- TOC entry 5041 (class 2606 OID 25459)
+-- Name: table_subject subject_name; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.table_subject
+    ADD CONSTRAINT subject_name FOREIGN KEY (subject_name) REFERENCES public.subject(subject_name) NOT VALID;
+
+
+--
+-- TOC entry 5027 (class 2606 OID 17062)
+-- Name: synonym synonyms_subject_name_a_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.synonym
+    ADD CONSTRAINT synonyms_subject_name_a_fkey FOREIGN KEY (subject_name_a) REFERENCES public.subject(subject_name);
+
+
+--
+-- TOC entry 5028 (class 2606 OID 17067)
+-- Name: synonym synonyms_subject_name_b_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.synonym
+    ADD CONSTRAINT synonyms_subject_name_b_fkey FOREIGN KEY (subject_name_b) REFERENCES public.subject(subject_name);
+
+
+--
+-- TOC entry 5062 (class 2606 OID 91524)
+-- Name: system_subject system; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system_subject
+    ADD CONSTRAINT system FOREIGN KEY (system_id) REFERENCES public.system(system_id) NOT VALID;
+
+
+--
+-- TOC entry 5021 (class 2606 OID 25605)
+-- Name: system_dataset system_dataset_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system_dataset
+    ADD CONSTRAINT system_dataset_node_id_fkey FOREIGN KEY (node_id) REFERENCES public.dataset(node_id) NOT VALID;
+
+
+--
+-- TOC entry 5022 (class 2606 OID 17004)
+-- Name: system_dataset system_dataset_system_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system_dataset
+    ADD CONSTRAINT system_dataset_system_id_fkey FOREIGN KEY (system_id) REFERENCES public.system(system_id);
+
+
+--
+-- TOC entry 5020 (class 2606 OID 16979)
+-- Name: system system_point_of_contact_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system
+    ADD CONSTRAINT system_point_of_contact_fkey FOREIGN KEY (point_of_contact) REFERENCES public.poc(poc_id);
+
+
+--
+-- TOC entry 5023 (class 2606 OID 25612)
+-- Name: system_processing_node system_processing_node_processing_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system_processing_node
+    ADD CONSTRAINT system_processing_node_processing_node_id_fkey FOREIGN KEY (processing_node_id) REFERENCES public.processing_node(node_id) NOT VALID;
+
+
+--
+-- TOC entry 5024 (class 2606 OID 17019)
+-- Name: system_processing_node system_processing_node_system_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system_processing_node
+    ADD CONSTRAINT system_processing_node_system_id_fkey FOREIGN KEY (system_id) REFERENCES public.system(system_id);
+
+
+--
+-- TOC entry 5042 (class 2606 OID 25454)
+-- Name: table_subject table_ID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.table_subject
+    ADD CONSTRAINT "table_ID" FOREIGN KEY ("table_ID") REFERENCES public.ums_table(table_id);
+
+
+--
+-- TOC entry 5034 (class 2606 OID 17171)
+-- Name: table_attribute table_attribute_attribute_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.table_attribute
+    ADD CONSTRAINT table_attribute_attribute_id_fkey FOREIGN KEY (attribute_id) REFERENCES public.attribute(attribute_id);
+
+
+--
+-- TOC entry 5035 (class 2606 OID 25617)
+-- Name: table_attribute table_attribute_foreign_key_table_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.table_attribute
+    ADD CONSTRAINT table_attribute_foreign_key_table_fkey FOREIGN KEY (foreign_key_table) REFERENCES public.ums_table(table_id) NOT VALID;
+
+
+--
+-- TOC entry 5036 (class 2606 OID 17166)
+-- Name: table_attribute table_attribute_table_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.table_attribute
+    ADD CONSTRAINT table_attribute_table_id_fkey FOREIGN KEY (table_id) REFERENCES public.ums_table(table_id);
+
+
+--
+-- TOC entry 5025 (class 2606 OID 17051)
+-- Name: taxonomy taxonomy_subject_name_child_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.taxonomy
+    ADD CONSTRAINT taxonomy_subject_name_child_fkey FOREIGN KEY (sub_subject) REFERENCES public.subject(subject_name);
+
+
+--
+-- TOC entry 5026 (class 2606 OID 17046)
+-- Name: taxonomy taxonomy_subject_name_parent_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.taxonomy
+    ADD CONSTRAINT taxonomy_subject_name_parent_fkey FOREIGN KEY (subject) REFERENCES public.subject(subject_name);
+
+
+--
+-- TOC entry 5243 (class 0 OID 25541)
+-- Dependencies: 250 5262
+-- Name: destination_node; Type: MATERIALIZED VIEW DATA; Schema: public; Owner: postgres
+--
+
+REFRESH MATERIALIZED VIEW public.destination_node;
+
+
+--
+-- TOC entry 5242 (class 0 OID 25537)
+-- Dependencies: 249 5262
+-- Name: source_node; Type: MATERIALIZED VIEW DATA; Schema: public; Owner: postgres
+--
+
+REFRESH MATERIALIZED VIEW public.source_node;
+
+
+-- Completed on 2025-08-30 14:02:56
+
+--
+-- PostgreSQL database dump complete
+--
+
