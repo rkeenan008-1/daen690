@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Looking Glass Metadata Schema Explorer</title>
+  <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.4.0/css/fixedHeader.dataTables.min.css">
+  <script src="https://cdn.datatables.net/fixedheader/3.4.0/js/dataTables.fixedHeader.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      font-family: sans-serif;
+    }
+
+    /* Sidebar */
+    #sidebar {
+      width: 250px;
+      min-width: 150px;
+      max-width: 500px;
+      background: #f4f4f4;
+      border-right: 2px solid #ccc;
+      padding: 10px;
+      overflow-y: auto;
+    }
+
+    /* Sidebar divider (draggable) */
+    #sidebar-divider {
+      width: 5px;
+      cursor: col-resize;
+      background: #ddd;
+    }
+
+     /* Graphs divider (draggable) */
+    #graphs-divider {
+      height: 5px;
+      cursor: row-resize;
+      flex-shrink: 0;
+      background: #ddd;
+    }
+
+    /* Main area */
+    #main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Query + Results Panel */
+    #query-panel {
+      border-bottom: 2px solid #ccc;
+      padding: 10px;
+      display: flex;               /* keep left/right side-by-side */
+      gap: 20px;
+      flex: 0 0 50%;               /* take max 50% of main height */
+      overflow: auto;              /* scroll if content exceeds */
+      min-height: 150px;
+      max-height: 40%;             /* exactly half of main container */
+    }
+
+    #query-left {
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #query-right {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Shared styling for both results tables */
+    #results, #search-results {
+      flex: 1;
+      overflow: hidden;              /* hide outer overflow */
+      border: 1px solid #ccc;
+      background: #fff;
+      padding: 0;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Inner wrapper provides scroll area */
+    #results .table-wrapper {
+      flex: 0 0 auto;             /* do not force to fill available space */
+      display: inline-block;      /* size wraps around table */
+      overflow-x: auto;
+      overflow-y: auto;
+      max-height: 300px;          /* keep same height */
+      white-space: nowrap;        /* prevent wrapping */
+      border: 1px solid #ccc;
+    }
+
+    /* Inner wrapper provides scroll area */
+    #search-results .table-wrapper {
+      flex: 1;
+      overflow-x: auto;
+      overflow-y: auto;
+      max-height: 300px;             /* adjust as needed */
+    }
+
+    /* Tables expand to container width */
+    /* Make table expand only as needed */
+    #results table {
+      width: auto;                /* shrink or expand dynamically */
+      max-width: 100%;            /* cap at container width */
+      border-collapse: collapse;
+      table-layout: auto;
+    }
+
+    #search-results table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    /* Style cells */
+    #results th, #results td,
+    #search-results th, #search-results td {
+      border: 1px solid #ccc;
+      padding: 6px 8px;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    /* Sticky header */
+    #results th, #search-results th {
+      position: sticky;
+      top: 0;
+      background-color: #f0f0f0;
+      z-index: 2;
+    }
+
+
+    .clickable-column {
+      color: blue;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .clickable-column:hover {
+      color: darkblue;
+    }
+
+    /* Graph Area Split (Main + Table) */
+    #graph-area {
+      flex: 1;
+      display: flex;
+      gap: 10px;
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    /* Left = big schema graph */
+    #cy-record {
+      flex: 1;
+      width: 60%;
+      height: 100%;
+      overflow: hidden;
+      border: 2px solid #333;
+      border-radius: 8px;
+      position: relative;
+    }
+
+    /* Right side = stacked column */
+    #right-graphs {
+      flex: 1; /* Smaller than main */
+      width: 40%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Table graph smaller */
+    #cy-table {
+      flex: 1; /* smaller share */
+      height: 40%;
+      border: 2px solid #333;
+      border-radius: 8px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Record graph larger */
+    #cy-main {
+      flex: 1.2; /* give a bit more space */
+      height: 60%;
+      border: 2px solid #333;
+      border-radius: 8px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #cy-main h2, #cy-table h2, #cy-record h2 {
+      margin: 0;
+      padding: 5px;
+      text-align: center;
+      font-size: 14px;
+      background: #333;
+      color: white;
+    }
+
+    /* Floating node info */
+    #node-info {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      width: 400px;
+      height: 30px;
+      max-height: 50%;
+      padding: 10px;
+      background-color: rgba(225, 223, 223, 0.8);
+      color: #1a1717;
+      font-family: monospace;
+      font-size: 12px;
+      border-radius: 8px;
+      resize: both;
+      overflow: auto;
+    }
+
+    /* Nested columns hidden by default */
+    .columns.collapsed {
+        display: none;
+        margin-left: 15px;
+        list-style-type: disc;
+    }
+
+    .table-label {
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .legend {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        padding: 6px 10px;
+        font-size: 12px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 4px;
+    }
+
+    .legend-color {
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+        border: 1px solid #333;
+        border-radius: 3px;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <h2>Schema's Tables & Columns</h2>
+    <input type="text" id="search" placeholder="Search for any table or column... Press Enter" style="width:100%; margin-bottom:10px;">
+    <div id="entity-list"></div>
+  </div>
+
+  <!-- Divider -->
+  <div id="sidebar-divider"></div>
+
+  <!-- Main Content -->
+  <div id="main">
+    <!-- Query Panel -->
+    <div id="query-panel">
+      <!-- Left side: SQL Query -->
+      <div id="query-left">
+        <h2>Execute SQL Query</h2>
+        <textarea id="query" rows="4" cols="50" placeholder="Enter SQL query (e.g., SELECT * FROM users)"></textarea>
+        <button id="run-query">Run Query</button>
+
+        <h3>Query's Result</h3>
+        <div id="results"></div>
+      </div>
+
+      <!-- Right side: Keyword Search -->
+      <div id="query-right">
+        <h2>Search Records by Keyword</h2>
+        <input type="text" id="search-box" placeholder="Search records...">
+        <button id="search-btn">Search</button>
+        <h3>Search Result</h3>
+        <div id="search-results"></div>
+      </div>
+    </div>
+
+    <!-- Graphs Area -->
+    <div id="graph-area">             
+      <!-- Right Side: Table + Record Graphs -->
+      <div id="right-graphs">
+        <!-- Main Schema Graph -->
+        <div id="cy-main">
+          <h2>Main Schema Graph</h2>
+          <div class="legend">
+              <div class="legend-item"><div class="legend-color" style="background:#4CAF50"></div>Primary Key</div>
+              <div class="legend-item"><div class="legend-color" style="background:#FFD700"></div>Foreign Key</div>
+              <div class="legend-item"><div class="legend-color" style="background:#2196F3"></div>Column</div>
+              <div class="legend-item"><div class="legend-color" style="background:#818b8a"></div>Table</div>
+          </div>
+        </div>
+        
+        <!-- Divider between graphs -->
+        <div id="graphs-divider"></div>
+
+        <!-- Selected Table Graph -->
+        <div id="cy-table">
+          <h2>Selected Table Graph with Upstream and Downstream Nodes</h2>
+          <div class="legend">
+              <div class="legend-item"><div class="legend-color" style="background:#4CAF50"></div>Primary Key</div>
+              <div class="legend-item"><div class="legend-color" style="background:#FFD700"></div>Foreign Key</div>
+              <div class="legend-item"><div class="legend-color" style="background:#2196F3"></div>Column</div>
+              <div class="legend-item"><div class="legend-color" style="background:#818b8a"></div>Table</div>
+              <div class="legend-item"><div class="legend-color" style="background:#852670"></div>External Table</div>
+          </div>
+          <div id="cy-table-container" style="width:100%; height:calc(100% - 60px);"></div>
+        </div>
+      </div>
+      
+      <!-- Record Graph -->
+      <div id="cy-record">
+        <h2>Record Graph</h2>     
+        <div id="fk-filters"></div>
+        <h3 id="record-graph-title"></h3>
+        <div id="cy-record-container" style="width: 100%; height: 500px;"></div>
+        <h3>Hidden Nodes</h3>
+        <div id="hidden-nodes"></div>
+        <div id="cy-record-container" style="width:100%; height:calc(100% - 40px);"></div>
+      </div> 
+    </div>
+  </div>
+
+  <!-- Floating Node Info -->
+  <!-- <div id="node-info"></div> -->
+
+  <!-- Application entry point -->
+  <script type="module" src="./main.js"></script>
+  
+</body>
+</html>
